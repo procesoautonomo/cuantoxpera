@@ -1,0 +1,5 @@
+{
+    "staticWebApps.appSubpath": "Client",
+    "staticWebApps.apiSubpath": "Api",
+    "staticWebApps.outputSubpath": "wwwroot"
+}
