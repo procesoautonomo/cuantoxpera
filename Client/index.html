@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-ar" lang="es-ar">
+
 <head runat="server">
     <title>Cuanto x Pera</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -9,7 +10,8 @@
     <meta id="meta_theme_color" name="theme-color" content="rgb(0, 0, 0)" />
     <meta name="description" content="Cuanto por Pera" />
     <meta name="robots" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
-    <meta name="googlebot" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
+    <meta name="googlebot"
+        content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
     <meta name="keywords" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Cuanto x Pera">
@@ -32,6 +34,7 @@
     <script src="js/websql.js"></script>
     <script src="js/cuantoxpera.js?v=42"></script>
 </head>
+
 <body>
     <style type="text/css">
         .btn-eliminar {
@@ -46,7 +49,7 @@
             font-size: 16px;
         }
 
-        .ulpersonaspagos{
+        .ulpersonaspagos {
             position: relative;
             top: -23px;
             margin-left: 2px;
@@ -61,56 +64,61 @@
                 Herramienta para administrar gastos en juntadas.
             </div>
         </div>
+
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="form-group">
-                    <label class="control-label">Nombre</label>
-                    <div class="input-group">
-                        <span class="input-group-addon glyphicon glyphicon-user">
-                        </span> <input id="txtNombre" type="text" class="form-control txt-input" placeholder="Nombre">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label">Nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-addon glyphicon glyphicon-user">
+                                </span> <input id="txtNombre" type="text" class="form-control txt-input"
+                                    placeholder="Nombre">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="form-group">
-                    <label class="control-label">Monto</label>
-                    <div class="input-group">
-                        <span class="input-group-addon glyphicon glyphicon-usd">
-                        </span> <input id="txtMonto" type="number" class="form-control txt-input" placeholder="Monto">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label">Monto</label>
+                            <div class="input-group">
+                                <span class="input-group-addon glyphicon glyphicon-usd">
+                                </span> <input id="txtMonto" type="number" class="form-control txt-input"
+                                    placeholder="Monto">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="text-right">
-                    <input id="btnAgregar" type="button"
-                           value="Agregar"
-                           class="btn btn-primary"
-                           onclick="validar_persona();" />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="text-right">
+                            <input id="btnAgregar" type="button" value="Agregar" class="btn btn-primary"
+                                onclick="validar_persona();" />
+                        </div>
+                    </div>
                 </div>
+                <hr class="hidden-lg hidden-md visible-sm visible-xs"/>
             </div>
-        </div>
-        <hr />
-        <div id="panel_personas" style="display:none;">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <ul id="ul_personas" class="list-group"></ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="text-right">
-                        <input id="btnLimpiar"
-                               type="button"
-                               value="Limpiar"
-                               class="btn btn-primary"
-                               onclick="$('#modal_confirmar_limpiar').modal();" />
-                        <input id="btnCalcular" type="button"
-                               value="Calcular" class="btn btn-primary"
-                               onclick="calcular_joda();" />
+            
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div id="panel_personas" style="display:none;">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <ul id="ul_personas" class="list-group"></ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="text-right">
+                                <input id="btnLimpiar" type="button" value="Limpiar" class="btn btn-primary"
+                                    onclick="$('#modal_confirmar_limpiar').modal();" />
+                                <input id="btnCalcular" type="button" value="Calcular" class="btn btn-primary"
+                                    onclick="calcular_joda();" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,7 +132,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Confirmar</h4>
                 </div>
                 <div class="modal-body">
@@ -142,7 +151,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="limpiarModalPagos()"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="limpiarModalPagos()"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">A Pagar!</h4>
                 </div>
                 <div class="modal-body">
@@ -170,8 +180,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnCompartirResultados" type="button" class="btn btn-danger" onclick="compartir_resultados();">Compartir Resultados</button>
-                    <button type="button" class="btn btn-default" onclick="limpiarModalPagos()" data-dismiss="modal">Cerrar</button>
+                    <button id="btnCompartirResultados" type="button" class="btn btn-danger"
+                        onclick="compartir_resultados();">Compartir Resultados</button>
+                    <button type="button" class="btn btn-default" onclick="limpiarModalPagos()"
+                        data-dismiss="modal">Cerrar</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -181,7 +193,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Confirmar</h4>
                 </div>
                 <div class="modal-body">
@@ -203,7 +216,7 @@
 
         gtag('config', 'UA-124898546-3');
     </script> -->
-    
+
     <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script> -->
     <!-- <script>
         var OneSignal = window.OneSignal || [];
@@ -214,4 +227,5 @@
         });
     </script> -->
 </body>
+
 </html>
