@@ -238,8 +238,17 @@ function calcular_joda() {
                         WHERE TieneQueRecibir <> 0 \
                     ORDER BY TieneQueRecibir DESC");
 
-        tx.executeSql("SELECT TOTALXPERA FROM Joda LIMIT 0,1", [], function (tx, totalXpera) {
+        tx.executeSql("SELECT TOTALJODA, TOTALXPERA FROM Joda LIMIT 0,1", [], function (tx, totalXpera) {
+            j = totalXpera.rows[0].TotalJoda;
             t = totalXpera.rows[0].TotalXPera;
+            
+            $('#ul_totales_juntada').empty();
+
+            var li_total = '<li class="list-group-item active">\
+                            <span class="badge">$'+ j + '</span >\
+                            Total Juntada: \
+                    </li>';
+            $('#ul_totales_juntada').append(li_total);
 
             $('#ul_totales_pagos').empty();
 
