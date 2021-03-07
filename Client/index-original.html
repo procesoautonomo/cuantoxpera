@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-ar" lang="es-ar">
+  <head runat="server">
+    <title>Cuanto x Pera</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://www.cuantoxpera.com.ar" />
+    <meta id="meta_theme_color" name="theme-color" content="rgb(0, 0, 0)" />
+    <meta name="description" content="Cuanto por Pera" />
+    <meta name="robots" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
+    <meta name="googlebot" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
+    <meta name="keywords" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Cuanto x Pera" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link rel="icon" href="images/icons/icon-64.png" />
+    <link rel="shortcut icon" href="images/icons/icon-64.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/icons/icon-64.png" />
+    <link rel="apple-touch-startup-image" href="images/icons/icon-64.png" />
+
+    <link id="manifest" rel="manifest" href="/manifest.json?v=2" />
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+    <script src="js/websql.js"></script>
+    <script src="js/cuantoxpera.js?v=42"></script>
+    <script data-ad-client="ca-pub-3980392369540294" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body>
+    <style type="text/css">
+      .btn-eliminar {
+        margin-left: 5px;
+      }
+
+      .txt-input {
+        margin-top: 2px;
+      }
+
+      .badge {
+        font-size: 16px;
+      }
+
+      .ulpersonaspagos {
+        position: relative;
+        top: -23px;
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="page-header pageheadercxp">
+        <img class="logo" src="images/icons/icon-64.svg" />
+
+        <div class="help-block">Herramienta para administrar gastos en juntadas.</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="form-group">
+            <label class="control-label">Nombre</label>
+            <div class="input-group"><span class="input-group-addon glyphicon glyphicon-user"> </span> <input id="txtNombre" type="text" class="form-control txt-input" placeholder="Nombre" /></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="form-group">
+            <label class="control-label">Monto</label>
+            <div class="input-group"><span class="input-group-addon glyphicon glyphicon-usd"> </span> <input id="txtMonto" type="number" class="form-control txt-input" placeholder="Monto" /></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="text-right">
+            <input id="btnAgregar" type="button" value="Agregar" class="btn btn-primary" onclick="validar_persona();" />
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div id="panel_personas" style="display: none">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul id="ul_personas" class="list-group"></ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="text-right">
+              <input id="btnLimpiar" type="button" value="Limpiar" class="btn btn-primary" onclick="$('#modal_confirmar_limpiar').modal();" />
+              <input id="btnCalcular" type="button" value="Calcular" class="btn btn-primary" onclick="calcular_joda();" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <br />
+    </footer>
+    <div id="modal_confirmar_limpiar" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirmar</h4>
+          </div>
+          <div class="modal-body">
+            <p>¿Estás seguro de eliminar los amigos y sus gastos?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" onclick="limpiar();">Confirmar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div id="modal_pagos" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="limpiarModalPagos()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">A Pagar!</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Asi se reparten los pagos.
+              <b><span id="Total_X_Pera" class="badge"></span></b>
+            </p>
+            <div id="panel_pagos_personas">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul id="ul_totales_juntada" class="list-group"></ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul id="ul_totales_pagos" class="list-group"></ul>
+                </div>
+              </div>
+              <div class="row ulpersonaspagos">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul id="ul_personas_pagos" class="list-group"></ul>
+                </div>
+              </div>
+            </div>
+            <div id="text_pagos_personas" style="display: none"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnCompartirResultados" type="button" class="btn btn-danger" onclick="compartir_resultados();">Compartir Resultados</button>
+            <button type="button" class="btn btn-default" onclick="limpiarModalPagos()" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div id="modal_confirmar_eliminar" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirmar</h4>
+          </div>
+          <div class="modal-body">
+            <p>¿Estás seguro de eliminar a <span id="lblAmigo"></span>?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" onclick="eliminar_amigo(true);">Confirmar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFK4Y87SD7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-FFK4Y87SD7");
+    </script>
+
+    <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script> -->
+    <!-- <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: "1721894f-2249-49cf-9f4e-8f0a0420e22a",
+            });
+        });
+    </script> -->
+  </body>
+</html>
