@@ -119,7 +119,7 @@ function mostrar_persona(idAmigo, nombre, monto) {
                                 data-idAmigo="' + idAmigo + '"\
                                 data-nombre="' + nombre + '"\
                                 data-monto="' + monto + '"\
-                                onclick="confirmar_eliminar(this);">\
+                                @click="showModal2 = true" onclick="confirmar_eliminar(this);">\
                                     <span class="glyphicon glyphicon-trash"></span>\
                             </a>&nbsp;&nbsp;\
                             <a class="btn btn-default btn-xs pull-right"\
@@ -417,5 +417,5 @@ function confirmar_eliminar(control) {
     var nombre = $(control).attr('data-nombre');
     $('#lblAmigo').attr('data-idAmigo', idAmigo);
     $('#lblAmigo').text(nombre);
-    $('#modal_confirmar_eliminar').modal();
+    // $('#modal_confirmar_eliminar').modal();
 }

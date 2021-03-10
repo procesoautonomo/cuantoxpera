@@ -6,20 +6,15 @@
     <title>Document</title>
 
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/prueba.css" />
 
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
 
-
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
-    <script src="js/websql.js"></script>
-    <script src="js/cuantoxpera_v3.js?v=42"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/prueba.css" />
   </head>
 
-  <body>
+  <body x-data="{ showModal1: false, showModal2: false, showModal3: false }">
     <div class="h-screen flex flex-col">
       <div class="flex flex-col items-center px-4">
         <img class="h-28 my-5" src="images/icons/icon-64.svg" />
@@ -78,105 +73,116 @@
         <div id="panel_personas" class="mt-6" style="display: none">
           <div class="">
             <div class="">
-              <ul id="ul_personas" class="">
-              </ul>
+              <ul id="ul_personas" class=""></ul>
             </div>
           </div>
 
           <div class="">
             <div class="">
               <div class="flex flex-row-reverse">
-                <input id="btnCalcular" type="button" value="Calcular" class="bg-green-500 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-xl relative right-0 " onclick="calcular_joda();" />
-                <input id="btnLimpiar" type="button" value="Limpiar" class="bg-red-500 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-xl relative right-0 mr-4" onclick="$('#modal_confirmar_limpiar').modal();" />
+                <input id="btnCalcular" type="button" value="Calcular" class="bg-green-500 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-xl relative right-0" onclick="calcular_joda();" />
+                <input id="btnLimpiar" type="button" value="Limpiar" class="bg-red-500 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-xl relative right-0 mr-4" @click="showModal1 = true" />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Modal Limpiar Todos -->
+    <div class="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50 duration-300 overflow-y-auto" x-show="showModal1" x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+      <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
+        <div class="relative bg-white shadow-lg rounded-md text-gray-900 z-20" @click.away="showModal1 = false" x-show="showModal1" x-transition:enter="transition transform duration-300" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="scale-100" x-transition:leave-end="scale-0">
+          <header class="flex items-center justify-between p-2">
+            <h2 class="font-semibold">Confirmar</h2>
+            <button class="focus:outline-none p-2" @click="showModal1 = false">
+              <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+              </svg>
+            </button>
+          </header>
+          <main class="p-2 text-center">
+            <p>¿Estás seguro de eliminar los amigos y sus gastos?</p>
+          </main>
+          <footer class="flex justify-center p-4">
+            <button class="bg-red-600 mr-3 font-semibold text-white p-2 w-32 rounded-full hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal1 = false" onclick="limpiar();">Confirmar</button>
+            <button class="bg-green-600 font-semibold text-white p-2 w-32 rounded-full hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal1 = false">Cancelar</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal Limpiar Todos -->
+
+    <!-- Modal Limpiar Amigo -->
+    <div class="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50 duration-300 overflow-y-auto" x-show="showModal2" x-transition:enter="transition duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+      <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
+        <div class="relative bg-white shadow-lg rounded-md text-gray-900 z-20" @click.away="showModal2 = false" x-show="showModal2" x-transition:enter="transition transform duration-300" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="scale-100" x-transition:leave-end="scale-0">
+          <header class="flex items-center justify-between p-2">
+            <h2 class="font-semibold">Confirmar</h2>
+            <button class="focus:outline-none p-2" @click="showModal2 = false">
+              <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+              </svg>
+            </button>
+          </header>
+          <main class="p-2 text-center">
+            <p>¿Estás seguro de eliminar a <span id="lblAmigo"></span>?</p>
+          </main>
+          <footer class="flex justify-center p-4">
+            <button class="bg-red-600 mr-3 font-semibold text-white p-2 w-32 rounded-full hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false" onclick="eliminar_amigo(true);">Confirmar</button>
+            <button class="bg-green-600 font-semibold text-white p-2 w-32 rounded-full hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">Cancelar</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal Limpiar Amigo -->
+
+    <div id="modal_pagos" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="limpiarModalPagos()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">A Pagar!</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Asi se reparten los pagos.
+              <b><span id="Total_X_Pera" class="badge"></span></b>
+            </p>
+            <div id="panel_pagos_personas">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul id="ul_totales_juntada" class="list-group"></ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul id="ul_totales_pagos" class="list-group"></ul>
+                </div>
+              </div>
+              <div class="row ulpersonaspagos">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul id="ul_personas_pagos" class="list-group"></ul>
+                </div>
+              </div>
+            </div>
+            <div id="text_pagos_personas" style="display: none"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnCompartirResultados" type="button" class="btn btn-danger" onclick="compartir_resultados();">Compartir Resultados</button>
+            <button type="button" class="btn btn-default" onclick="limpiarModalPagos()" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+    <script src="js/websql.js"></script>
+
+    <script src="js/cuantoxpera_v3.js?v=42"></script>
   </body>
-
-
-  <div id="modal_confirmar_limpiar" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Confirmar</h4>
-        </div>
-        <div class="modal-body">
-          <p>¿Estás seguro de eliminar los amigos y sus gastos?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" onclick="limpiar();">Confirmar</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-  <div id="modal_pagos" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="limpiarModalPagos()"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">A Pagar!</h4>
-        </div>
-        <div class="modal-body">
-          <p>
-            Asi se reparten los pagos.
-            <b><span id="Total_X_Pera" class="badge"></span></b>
-          </p>
-          <div id="panel_pagos_personas">
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul id="ul_totales_juntada" class="list-group"></ul>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul id="ul_totales_pagos" class="list-group"></ul>
-              </div>
-            </div>
-            <div class="row ulpersonaspagos">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul id="ul_personas_pagos" class="list-group"></ul>
-              </div>
-            </div>
-          </div>
-          <div id="text_pagos_personas" style="display: none"></div>
-        </div>
-        <div class="modal-footer">
-          <button id="btnCompartirResultados" type="button" class="btn btn-danger" onclick="compartir_resultados();">Compartir Resultados</button>
-          <button type="button" class="btn btn-default" onclick="limpiarModalPagos()" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-  <div id="modal_confirmar_eliminar" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Confirmar</h4>
-        </div>
-        <div class="modal-body">
-          <p>¿Estás seguro de eliminar a <span id="lblAmigo"></span>?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" onclick="eliminar_amigo(true);">Confirmar</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
 </html>
