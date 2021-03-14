@@ -114,7 +114,7 @@ function validar_persona() {
 
 function mostrar_persona(idAmigo, nombre, monto) {
     validaciones = 0;
-    var li_persona = '<li class="bg-red-200 text-sm sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-xl border-4 border-white w-full py-2 focus:outline-none mb-3">\
+    var li_persona = '<li class="bg-orange-primary text-sm text-white sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-xl border-4 border-white w-full py-2 focus:outline-none mb-3">\
                             <a class="btn btn-danger btn-xs pull-right btn-eliminar"\
                                 data-idAmigo="' + idAmigo + '"\
                                 data-nombre="' + nombre + '"\
