@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/tailwind/style.css" />
+
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js"
+      defer
+    ></script>
+  </head>
+  <body class="container mx-auto bg-gray-100">
+    <!-- uso de x-data y x-init -->
+    <div x-data="main()" x-init="iniciar">
+      <p x-text="usuario"></p>
+    </div>
+
+    <!-- uso de eventos, bind y show -->
+    <div x-data="booleanos()">
+        <p x-text="open"></p>
+        <p x-show="open">Hola mundo alpine</p>
+        <button x-on:click="open=!open" class="btn-soul w-full">Cambiar</button>
+        <p x-bind:class="{'bg-red-500':open, 'bg-blue-500':!open}">Aplicando Estilo Con Apline</p>
+        <button x-bind:disabled="open">Cambiar</button>
+    </div>
+
+    <!-- uso de x-for con array -->
+    <template x-data="testFor()" x-for="animal in animales" :key="animal">
+      <button x-text="animal" class="btn-soul w-full"></button>
+    </template>
+
+    <script>
+      function main() {
+        return {
+          usuario: "matias",
+          iniciar: function () {
+            this.usuario = "saúl - contreras";
+          },
+        };
+      }
+
+      function booleanos() {
+        return {
+          open: false
+        };
+      }
+
+      function testFor() {
+        animales = [];
+        for (let index = 0; index < 1; index++) {
+          animales.push(index);
+        }
+        return animales;
+      }
+    </script>
+  </body>
+</html>

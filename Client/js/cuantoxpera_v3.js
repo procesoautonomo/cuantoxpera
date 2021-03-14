@@ -22,7 +22,7 @@ $(document).keypress(function (e) {
 });
 
 $(document).ready(function () {
-    inicializar_sw();
+    // inicializar_sw();
     inicializar_db();
     consultar_amigos();
     $('#btnCompartirResultados').hide();
@@ -153,7 +153,7 @@ function limpiar() {
     });
     $('#ul_personas').empty();
     $('#panel_personas').hide();
-    $('#modal_confirmar_limpiar').modal('hide');
+    // $('#modal_confirmar_limpiar').modal('hide');
 }
 
 function limpiarModalPagos() {
@@ -346,7 +346,7 @@ function guardarJoda() {
 
             cargar_pagos_persona(pago.NombreDeudor, pago.NombreAmigoCobrador, pago.MontoRedondeado)
         }
-        $('#modal_pagos').modal();
+        // $('#modal_pagos').modal();
     });
 }
 
@@ -371,7 +371,7 @@ function eliminar_amigo(mostrar_toast) {
     db.transaction(function (tx) {
         tx.executeSql('DELETE FROM Amigos WHERE idAmigo = ' + idAmigo, [], function (tx, results) {
             $('.btn-eliminar[data-idAmigo="' + idAmigo + '"]').parent().remove();
-            $('#modal_confirmar_eliminar').modal('hide');
+            // $('#modal_confirmar_eliminar').modal('hide');
             if (mostrar_toast) {
                 $.toast({
                     heading: 'Eliminado',
