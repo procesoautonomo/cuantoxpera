@@ -1,9 +1,7 @@
 {
   "start_url": "./",
   "name": "Cuanto X Pera",
-  "short_name": "Cuanto X Pera",
-  "gcm_sender_id": "482941778795",
-  "default_locale": "es",
+  "short_name": "CuantoXPera",
   "icons": [
     {
       "src": "./images/icons/icon-144.png",
@@ -24,7 +22,5 @@
   ],
   "display": "standalone",
   "background_color": "#FFFFFF",
-  "theme_color": "#EC693C",
-  "kiosk_enabled": true,
-  "kiosk_only": true
+  "theme_color": "#EC693C"
 }

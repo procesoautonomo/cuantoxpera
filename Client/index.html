@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="canonical" href="https://www.cuantoxpera.com.ar" />
-    <meta id="meta_theme_color" name="theme-color" content="rgb(236, 105, 60)" />
+    <link rel="canonical" href="https://cuantoxpera.com.ar" />
+    <meta name="theme-color" content="#ec693c" />
     <meta name="description" content="Cuanto por Pera" />
     <meta name="robots" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
     <meta name="googlebot" content="Cuanto por pera, cuanto x pera, gastos entre amigos, cuentas claras, calcula joda" />
@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" href="images/icons/icon-64.png" />
     <link rel="apple-touch-startup-image" href="images/icons/icon-64.png" />
 
-    <link id="manifest" rel="manifest" href="./manifest.json" />
+    <link rel="manifest" href="./site.webmanifest" />
 
     <title>¿Cuánto x Pera?</title>
 
@@ -32,13 +32,13 @@
   <body x-data="{ showModal1: false, showModal2: false, showModal3: false }">
     <div class="h-screen flex flex-col">
       <div class="flex flex-col lg:flex-row items-center lg:justify-between px-4 lg:px-52 2xl:px-96">
-        <img class="h-32 my-5" src="images/icons/icon-64.svg" />
+        <img class="h-32 my-5" src="images/icons/icon-64.svg" alt="¿Cuánto x Pera?" />
         <p class="text-xs lg:text-lg font-normal lg:font-bold leading-4 text-center text-orange-secondary mb-5 lg:mb-0 lg:ml-8 px-2 py-1 border-r-4 border-l-4 border-orange-primary">Herramienta para administrar gastos en juntadas.</p>
       </div>
 
       <div class="lg:px-52 2xl:px-96 bg-orange-primary px-4 py-2 flex-grow rounded-t-lg">
         <div class="flex flex-col mb-6">
-          <label for="email" class="mb-1 mt-4 ml-3 text-xs sm:text-sm tracking-wide text-white font-bold text-xs">Nombre</label>
+          <label for="txtNombre" class="mb-1 mt-4 ml-3 text-xs sm:text-sm tracking-wide text-white font-bold text-xs">Nombre</label>
           <div class="relative">
             <div class="bg-white inline-flex items-center justify-center absolute left-0 top-0 h-full w-11 rounded-l-xl">
               <svg class="h-7 w-7" viewBox="0 -5 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,7 @@
         </div>
 
         <div class="flex flex-col mb-6">
-          <label for="email" class="mb-1 ml-3 text-xs sm:text-sm tracking-wide text-white font-bold text-xs">Monto</label>
+          <label for="txtMonto" class="mb-1 ml-3 text-xs sm:text-sm tracking-wide text-white font-bold text-xs">Monto</label>
           <div class="relative">
             <div class="bg-white inline-flex items-center justify-center absolute left-0 top-0 h-full w-11 rounded-l-xl">
               <svg class="h-7 w-7" viewBox="-5 -5 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +132,7 @@
         >
           <header class="flex items-center justify-between p-2">
             <h2 class="font-bold text-2xl">Confirma:</h2>
-            <button class="focus:outline-none" @click="showModal1 = false">
+            <button class="focus:outline-none" @click="showModal1 = false" aria-label="close">
               <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
               </svg>
@@ -177,7 +177,7 @@
         >
           <header class="flex items-center justify-between p-2">
             <h2 class="font-bold text-2xl">Confirma:</h2>
-            <button class="focus:outline-none" @click="showModal1 = false">
+            <button class="focus:outline-none" @click="showModal1 = false" aria-label="close">
               <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
               </svg>
@@ -226,7 +226,7 @@
         >
           <header class="flex items-center justify-between px-6 py-4">
             <h2 class="font-bold text-xl text-white">A Pagar!</h2>
-            <button class="focus:outline-none p-2 text-white" @click="showModal3 = false">
+            <button class="focus:outline-none p-2 text-white" @click="showModal3 = false" aria-label="close">
               <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
               </svg>
@@ -275,7 +275,7 @@
     <!-- /Modal A Pagar -->
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
     <script src="plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
     <script src="js/cuantoxpera.js"></script>
     
