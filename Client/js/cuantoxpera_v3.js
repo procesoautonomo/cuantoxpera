@@ -363,12 +363,12 @@ function cargar_pagos_persona(NombreDeudor, NombreAmigoCobrador, MontoRedondeado
 
     $('#ul_personas_pagos').append(li_persona);
 
-    // var salto_linea = '<br/>';
-    // if ($('#text_pagos_personas').text() != '') {
-    //     salto_linea = '<br/>';
-    // }
+    var salto_linea = '';
+    if ($('#text_pagos_personas').text().trim() == '') {
+         salto_linea = '¡Repartamos los pagos con Cuanto x Pera!\n\n';
+     }
     
-    $('#text_pagos_personas').append(NombreDeudor + ' le tiene que pagar a ' + NombreAmigoCobrador + ' $' + MontoRedondeado + '.\n');
+    $('#text_pagos_personas').append(salto_linea + NombreDeudor + ' le tiene que pagar a ' + NombreAmigoCobrador + ' $' + MontoRedondeado + '.\n\n');
 }
 
 function eliminar_amigo(mostrar_toast) {

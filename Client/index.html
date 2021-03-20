@@ -99,7 +99,7 @@
 
         <hr class="mt-24" />
 
-        <div id="panel_personas" class="mt-6" style="display: none">
+        <div id="panel_personas" class="my-6" style="display: none">
           <div class="">
             <div class="">
               <ul id="ul_personas" class=""></ul>
@@ -108,7 +108,7 @@
 
           <div class="">
             <div class="">
-              <div class="flex flex-row-reverse">
+              <div class="flex flex-row-reverse mt-6">
                 <input id="btnCalcular" type="button" value="Calcular" class="bg-green-500 hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-xl relative right-0" @click="showModal3 = true" onclick="calcular_joda();" />
                 <input id="btnLimpiar" type="button" value="Limpiar" class="bg-orange-secondary hover:bg-blue-dark text-white font-bold py-3 px-7 rounded-xl relative right-0 mr-4" @click="showModal1 = true" />
               </div>
@@ -156,14 +156,12 @@
             <button class="bg-orange-secondary text-sm mr-3 font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-600 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal1 = false" onclick="limpiar();">
                 Confirmar
             </button>
-
             <button class="bg-orange-primary text-sm font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 border border-white" @click="showModal1 = false">Cancelar</button>            
           </footer>
         </div>
       </div>
     </div>
     <!-- /Modal Limpiar Todos -->
-
 
     <!-- Modal Limpiar Amigo -->
     <div
