@@ -1,45 +1,32 @@
-    
-    .pageheadercxp {
-    padding-bottom: 9px;
-    margin: 40px 0 20px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 150px;
-    padding-left: 150px;
-    }
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 
-    .logo {
-        max-width: 317px;
-    }
+html,
+body {
+  font-family: "Open Sans", sans-serif;
+}
 
-    .help-block {
-    color: #592323;
-    border-left-color: #EC693C;
-    border-right-color: #EC693C;
-    border-left-style: solid;
-    border-right-style: solid;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-right: 0px;
-    border-right-width: 2px;
-    border-left-width: 2px;
-    }
+.bg-orange-primary {
+  background-color: #ec693c;
+}
+.text-orange-primary {
+  color: #ec693c;
+}
+.border-orange-primary {
+  border-color: #ec693c;
+}
+.placeholder-orange-primary::placeholder {
+  color: #ec693c;
+}
 
-
-    /*pageheadercxpmobile {
-       
-        border-bottom: 1px solid #eee;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        */
-      
+.bg-orange-secondary {
+  background-color: #592323;
+}
+.text-orange-secondary {
+  color: #592323;
+}
+.border-orange-secondary {
+  border-color: #592323;
+}
+.placeholder-orange-secondary::placeholder {
+  color: #592323;
+}
