@@ -114,25 +114,32 @@ function validar_persona() {
 
 function mostrar_persona(idAmigo, nombre, monto) {
     validaciones = 0;
-    var li_persona = '<li class="bg-orange-primary text-sm text-white sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-xl border-4 border-white w-full py-2 focus:outline-none mb-3">\
-                            <a class="btn btn-danger btn-xs pull-right btn-eliminar"\
-                                data-idAmigo="' + idAmigo + '"\
-                                data-nombre="' + nombre + '"\
-                                data-monto="' + monto + '"\
-                                @click="showModal2 = true" onclick="confirmar_eliminar(this);">\
-                                    <span class="glyphicon glyphicon-trash"></span>\
-                            </a>&nbsp;&nbsp;\
-                            <a class="btn btn-default btn-xs pull-right"\
+    var li_persona = '<li class="flex items-center justify-between bg-orange-primary text-sm text-white sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-xl border-2 border-white w-full py-2 focus:outline-none mb-3">\
+                        <div>'+ idAmigo + ') ' + nombre + ': $' + monto + '</div>\
+                        <div>\
+                            <a class=""\
                                 data-idAmigo="' + idAmigo + '"\
                                 data-nombre="' + nombre + '"\
                                 data-monto="' + monto + '"\
                                 onclick="editar(this);">\
-                                    <span class="glyphicon glyphicon-edit"></span>\
-                             </a>\
-                                                        '+ idAmigo + ') ' + nombre + ': $' + monto + '\
-                                                      </li>';
+                                    <span class="">Modificar</span>\
+                            </a>\
+                            || <a id="btn-eliminar-amigo" class=""\
+                                data-idAmigo="' + idAmigo + '"\
+                                data-nombre="' + nombre + '"\
+                                data-monto="' + monto + '"\
+                                @click="showModal2 = true" onclick="confirmar_eliminar(this);">\
+                                    <span class="">Quitar</span>\
+                            </a>\
+                         </div>\
+                        </li>';
     $('#ul_personas').append(li_persona);
     $('#panel_personas').show();
+    
+    $('#btnCalcular').hide();
+    if ($('#ul_personas li').length > 1) {
+        $('#btnCalcular').show();
+    }
 }
 
 function limpiar() {
@@ -244,18 +251,18 @@ function calcular_joda() {
             
             $('#ul_totales_juntada').empty();
 
-            var li_total = '<li class="list-group-item active">\
-                            <span class="badge">$'+ j + '</span >\
-                            Total Juntada: \
-                    </li>';
+            var li_total = '<li class="flex items-center justify-between bg-white rounded-xl text-orange-secondary py-3 px-5">\
+                                <div class=""><b>Gastos</b> totales:</div>\
+                                <b><span class="badge">$'+ j + '</span ></b>\
+                            </li>';
             $('#ul_totales_juntada').append(li_total);
 
             $('#ul_totales_pagos').empty();
 
-            var li_persona = '<li class="list-group-item active">\
-                            <span class="badge">$'+ t + '</span >\
-                            Total X Pera: \
-                    </li>';
+            var li_persona = '<li class="flex items-center justify-between bg-white rounded-xl text-orange-secondary py-3 px-5">\
+                                    <div class=""><b>¿Cuánto x Pera?</b></div>\
+                                    <b><span class="badge">$'+ t + '</span ></b>\
+                                </li>';
             $('#ul_totales_pagos').append(li_persona);
 
 
@@ -335,7 +342,6 @@ function guardarJoda() {
         }
     }
 
-
     db.transaction(function (tx) {
         $('#ul_personas_pagos').empty();
         $('#text_pagos_personas').empty();
@@ -346,23 +352,23 @@ function guardarJoda() {
 
             cargar_pagos_persona(pago.NombreDeudor, pago.NombreAmigoCobrador, pago.MontoRedondeado)
         }
-        // $('#modal_pagos').modal();
     });
 }
 
 function cargar_pagos_persona(NombreDeudor, NombreAmigoCobrador, MontoRedondeado) {
+    var li_persona = '<li class="flex items-center justify-between text-white py-3 px-8 border-b">\
+                            <p>'+ NombreDeudor + ' le tiene que pagar a ' + NombreAmigoCobrador + '</p>\
+                            <b><span class="badge">$'+ MontoRedondeado + '</span ></b>\
+                        </li>';
 
-    var li_persona = '<li class="list-group-item">\
-                            <span class="badge">$'+ MontoRedondeado + '</span >\
-                            '+ NombreDeudor + ' le tiene que pagar a ' + NombreAmigoCobrador + '\
-                      </li>';
     $('#ul_personas_pagos').append(li_persona);
 
-    var salto_linea = '';
-    if ($('#text_pagos_personas').text() != '') {
-        salto_linea = '<br/>';
-    }
-    $('#text_pagos_personas').append(salto_linea + NombreDeudor + ' le tiene que pagar a ' + NombreAmigoCobrador + ' $' + MontoRedondeado + '. ');
+    // var salto_linea = '<br/>';
+    // if ($('#text_pagos_personas').text() != '') {
+    //     salto_linea = '<br/>';
+    // }
+    
+    $('#text_pagos_personas').append(NombreDeudor + ' le tiene que pagar a ' + NombreAmigoCobrador + ' $' + MontoRedondeado + '.\n');
 }
 
 function eliminar_amigo(mostrar_toast) {
@@ -370,7 +376,7 @@ function eliminar_amigo(mostrar_toast) {
     var nombre = $('#lblAmigo').text();
     db.transaction(function (tx) {
         tx.executeSql('DELETE FROM Amigos WHERE idAmigo = ' + idAmigo, [], function (tx, results) {
-            $('.btn-eliminar[data-idAmigo="' + idAmigo + '"]').parent().remove();
+            $('#btn-eliminar-amigo[data-idAmigo="' + idAmigo + '"]').parent().parent().remove();
             // $('#modal_confirmar_eliminar').modal('hide');
             if (mostrar_toast) {
                 $.toast({
@@ -380,6 +386,11 @@ function eliminar_amigo(mostrar_toast) {
                     loader: true,
                     position: 'top-right'
                 });
+            }
+
+            if ($('#ul_personas li').length < 1) {
+                $('#btnCalcular').hide();
+                $('#panel_personas').hide();
             }
         }, null);
     });

@@ -153,16 +153,17 @@
             <p>¿Estás seguro de eliminar los amigos y sus gastos?</p>
           </main>
           <footer class="flex justify-center p-4">
-            <button class="bg-orange-secondary mr-3 font-semibold text-white p-2 w-32 rounded-full hover:bg-red-600 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal1 = false">Cancelar</button>
-
-            <button class="bg-red-500 font-semibold text-white p-2 w-32 rounded-full hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal1 = false" onclick="limpiar();">
-              Confirmar
+            <button class="bg-orange-secondary text-sm mr-3 font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-600 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal1 = false" onclick="limpiar();">
+                Confirmar
             </button>
+
+            <button class="bg-orange-primary text-sm font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 border border-white" @click="showModal1 = false">Cancelar</button>            
           </footer>
         </div>
       </div>
     </div>
     <!-- /Modal Limpiar Todos -->
+
 
     <!-- Modal Limpiar Amigo -->
     <div
@@ -175,9 +176,9 @@
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
     >
-      <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
+      <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-6 sm:mx-auto my-16 opacity-100">
         <div
-          class="relative bg-white shadow-lg rounded-md text-gray-900 z-20"
+          class="relative px-5 bg-orange-primary shadow-lg rounded-md text-white z-20"
           @click.away="showModal2 = false"
           x-show="showModal2"
           x-transition:enter="transition transform duration-300"
@@ -188,25 +189,24 @@
           x-transition:leave-end="scale-0"
         >
           <header class="flex items-center justify-between p-2">
-            <h2 class="font-semibold">Confirmar</h2>
-            <button class="focus:outline-none p-2" @click="showModal2 = false">
+            <h2 class="font-bold text-2xl">Confirma:</h2>
+            <button class="focus:outline-none" @click="showModal1 = false">
               <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
               </svg>
             </button>
           </header>
-          <main class="p-2 text-center">
+          <main class="p-2 text-lg mb-4">
             <p>¿Estás seguro de eliminar a <span id="lblAmigo"></span>?</p>
           </main>
           <footer class="flex justify-center p-4">
             <button
-              class="bg-orange-600 mr-3 font-semibold text-white p-2 w-32 rounded-full hover:bg-orange-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300"
+              class="bg-orange-secondary text-sm mr-3 font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-600 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300"
               @click="showModal2 = false"
-              onclick="eliminar_amigo(true);"
-            >
-              Confirmar
+              onclick="eliminar_amigo(true);">
+                Confirmar
             </button>
-            <button class="bg-green-600 font-semibold text-white p-2 w-32 rounded-full hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">Cancelar</button>
+            <button class="bg-orange-primary text-sm font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 border border-white" @click="showModal2 = false">Cancelar</button>
           </footer>
         </div>
       </div>
@@ -225,9 +225,9 @@
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
     >
-      <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
+      <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-6 sm:mx-auto my-16 opacity-100">
         <div
-          class="relative bg-white shadow-lg rounded-md text-gray-900 z-20"
+          class="relative bg-orange-primary shadow-lg rounded-md text-gray-900 z-20"
           @click.away="showModal3 = false"
           x-show="showModal3"
           x-transition:enter="transition transform duration-300"
@@ -237,23 +237,19 @@
           x-transition:leave-start="scale-100"
           x-transition:leave-end="scale-0"
         >
-          <header class="flex items-center justify-between p-2">
-            <h2 class="font-semibold">A Pagar!</h2>
-            <button class="focus:outline-none p-2" @click="showModal3 = false">
+          <header class="flex items-center justify-between px-6 py-4">
+            <h2 class="font-bold text-xl text-white">A Pagar!</h2>
+            <button class="focus:outline-none p-2 text-white" @click="showModal3 = false">
               <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
               </svg>
             </button>
           </header>
-          <main class="p-2 text-center">
-            <p>
-              Asi se reparten los pagos.
-              <b><span id="Total_X_Pera" class="badge"></span></b>
-            </p>
+          <main class="px-6">
             <div id="panel_pagos_personas">
               <div class="">
                 <div class="">
-                  <ul id="ul_totales_juntada" class=""></ul>
+                  <ul id="ul_totales_juntada" class="mb-4"></ul>
                 </div>
                 <div class="">
                   <ul id="ul_totales_pagos" class=""></ul>
@@ -261,23 +257,25 @@
               </div>
               <div class="">
                 <div class="">
-                  <ul id="ul_personas_pagos" class=""></ul>
+                  <ul id="ul_personas_pagos" class="">
+                  </ul>
                 </div>
               </div>
             </div>
-            <div id="text_pagos_personas" style="display: none"></div>
+            <div id="text_pagos_personas" style="display: none">
+            </div>
           </main>
           <footer class="flex justify-center p-4">
             <button
               id="btnCompartirResultados"
-              class="bg-orange-primary mr-3 font-semibold text-white p-2 w-32 rounded-full hover:bg-red-600 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300"
+              class="bg-orange-secondary text-sm mr-3 font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-600 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300"
               @click="showModal3 = false"
               onclick="compartir_resultados();"
             >
-              Compartir Resultados
+              Compartir
             </button>
             <button
-              class="bg-orange-secondary font-semibold text-white p-2 w-32 rounded-full hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300"
+              class="bg-orange-primary text-sm font-semibold text-white p-2 w-32 rounded-lg hover:bg-red-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 border border-white"
               @click="showModal3 = false"
               onclick="limpiarModalPagos()"
             >
