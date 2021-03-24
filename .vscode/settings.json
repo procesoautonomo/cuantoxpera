@@ -1,5 +1,6 @@
 {
     "staticWebApps.appSubpath": "Client",
     "staticWebApps.apiSubpath": "Api",
-    "staticWebApps.outputSubpath": "wwwroot"
+    "staticWebApps.outputSubpath": "wwwroot",
+    "liveServer.settings.port": 5501
 }
