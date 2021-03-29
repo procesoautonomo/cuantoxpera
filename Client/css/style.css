@@ -5,6 +5,10 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 .bg-orange-primary {
   background-color: #ec693c;
 }
