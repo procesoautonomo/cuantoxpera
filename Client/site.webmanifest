@@ -2,21 +2,38 @@
   "start_url": "./",
   "name": "Cuanto X Pera",
   "short_name": "CuantoXPera",
+  "description": "Herramienta para administrar gastos en juntadas.",
+  "lang": "es-ES",
   "icons": [
     {
+      "src": "./images/icons/icon-48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./images/icons/icon-72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./images/icons/icon-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
       "src": "./images/icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./images/icons/icon-168.png",
+      "type": "image/png",
+      "sizes": "168x168"
     },
     {
       "src": "./images/icons/icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
-    {
-      "src": "./images/icons/icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "display": "standalone",

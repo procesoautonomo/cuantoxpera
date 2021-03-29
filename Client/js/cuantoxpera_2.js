@@ -77,7 +77,7 @@ function consultar_amigos() {
 
 function mostrar_persona(pAmigo) {
   var li_persona =
-    '<li class="flex items-center justify-between bg-orange-primary text-sm text-white sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-xl border-2 border-white w-full py-2 focus:outline-none mb-3">\
+    '<li class="flex items-center justify-between bg-orange-primary text-sm text-white sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-lg border-2 border-white w-full py-2 focus:outline-none mb-3">\
                           <div>' +
     pAmigo.Id +
     ") " +
@@ -342,7 +342,7 @@ function calcular_joda() {
   $("#ul_totales_juntada").empty();
 
   var li_total =
-    '<li class="flex items-center justify-between bg-white rounded-xl text-orange-secondary py-3 px-5">\
+    '<li class="flex items-center justify-between bg-white rounded-lg text-orange-secondary py-3 px-5">\
                                   <div class=""><b>Gastos</b> totales:</div>\
                                   <b><span class="badge">$' +
     juntada.TotalJuntada +
@@ -353,7 +353,7 @@ function calcular_joda() {
   $("#ul_totales_pagos").empty();
 
   var li_persona =
-    '<li class="flex items-center justify-between bg-white rounded-xl text-orange-secondary py-3 px-5">\
+    '<li class="flex items-center justify-between bg-white rounded-lg text-orange-secondary py-3 px-5">\
                                       <div class=""><b>¿Cuánto x Pera?</b></div>\
                                       <b><span class="badge">$' +
     juntada.TotalxPera +
@@ -418,7 +418,7 @@ function guardarJoda() {
 }
 
 function cargar_pagos_persona(NombreDeudor, NombreAmigoCobrador, MontoRedondeado) {
-  var li_persona = '<li class="flex items-center justify-between text-white py-3 px-8 border-b">\
+  var li_persona = '<li class="flex space-x-8 sm:space-x-20 items-center justify-between text-white py-3 px-8 border-b">\
     <p>' + NombreDeudor + " le tiene que pagar a " + NombreAmigoCobrador + '</p>\
     <b><span class="badge">$' + MontoRedondeado + "</span ></b>\
     </li>";
