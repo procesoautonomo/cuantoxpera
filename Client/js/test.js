@@ -11,7 +11,7 @@ $(document).ready(function () {
     var li_X =
       '<li>\
             <div> Acceleration along the X-axis ' +
-      acl.x +
+            Math.abs(acl.x.toPrecision(2)) +
       "\
             </div>\
         </li>";
@@ -20,7 +20,7 @@ $(document).ready(function () {
     var li_Y =
       '<li>\
         <div> Acceleration along the Y-axis ' +
-      acl.y +
+        Math.abs(acl.y.toPrecision(2)) +
       "\
         </div>\
     </li>";
@@ -29,7 +29,7 @@ $(document).ready(function () {
     var li_Z =
       '<li>\
             <div> Acceleration along the Z-axis ' +
-      acl.z +
+            Math.abs(acl.z.toPrecision(2)) +
       "\
             </div>\
         </li>";
