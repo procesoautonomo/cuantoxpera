@@ -5,6 +5,8 @@ $(document).ready(function () {
     console.log("Acceleration along the X-axis " + acl.x);
     console.log("Acceleration along the Y-axis " + acl.y);
     console.log("Acceleration along the Z-axis " + acl.z);
+    
+    $("#ul_personas").empty();
 
     var li_X =
       '<li class="flex items-center justify-between bg-orange-primary text-sm text-white sm:text-base placeholder-gray-500 pl-1 pr-4 rounded-lg border-2 border-white w-full py-2 focus:outline-none mb-3">\
