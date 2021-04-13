@@ -30,7 +30,7 @@ $(document).ready(function () {
     $("#ul_acc").append(li_Y);
     $("#ul_acc").append(li_Z);
 
-    var thergb = "rgb(" + x + "," + y + "," + z + ")";
+    var thergb = "linear-gradient(90deg, rgba(" + x + "," + y + "," + z + ", 1) 0%, rgb(" + z + "," + x + "," + y + ", 1) 100%)";
     $("#ul_acc").css( "background-color", thergb );
     
   });
