@@ -2,36 +2,36 @@ $(document).ready(function () {
   let acl = new Accelerometer({ frequency: 60 });
 
   acl.addEventListener("reading", () => {
-    console.log("Acceleration along the X-axis " + acl.x);
-    console.log("Acceleration along the Y-axis " + acl.y);
-    console.log("Acceleration along the Z-axis " + acl.z);
+    // console.log("Acceleration along the X-axis " + acl.x);
+    // console.log("Acceleration along the Y-axis " + acl.y);
+    // console.log("Acceleration along the Z-axis " + acl.z);
 
     var x = Math.round(map(Math.abs(acl.x.toPrecision(2)), 0, 10, 0, 255));
     var y = Math.round(map(Math.abs(acl.y.toPrecision(2)), 0, 10, 0, 255));
     var z = Math.round(map(Math.abs(acl.z.toPrecision(2)), 0, 10, 0, 255));
 
-    var li_X = "<li>\
-            <div> Acceleration along the X-axis " + x + "\
-            </div>\
-        </li>";
+    // var li_X = "<li>\
+    //         <div> Acceleration along the X-axis " + x + "\
+    //         </div>\
+    //     </li>";
     
-    var li_Y = "<li>\
-        <div> Acceleration along the Y-axis " + y + "\
-        </div>\
-    </li>";
+    // var li_Y = "<li>\
+    //     <div> Acceleration along the Y-axis " + y + "\
+    //     </div>\
+    // </li>";
 
-    var li_Z = "<li>\
-            <div> Acceleration along the Z-axis " + z + "\
-            </div>\
-        </li>";
+    // var li_Z = "<li>\
+    //         <div> Acceleration along the Z-axis " + z + "\
+    //         </div>\
+    //     </li>";
 
-    $("#ul_acc").empty();
-    $("#ul_acc").append(li_X);
-    $("#ul_acc").append(li_Y);
-    $("#ul_acc").append(li_Z);
+    // $("#ul_acc").empty();
+    // $("#ul_acc").append(li_X);
+    // $("#ul_acc").append(li_Y);
+    // $("#ul_acc").append(li_Z);
 
     var thergb = "linear-gradient(90deg, rgba(" + x + "," + y + "," + z + ", 1) 0%, rgb(" + z + "," + x + "," + y + ", 1) 100%)";
-    $("#ul_acc").css( "background", thergb );
+    $("#acc").css( "background", thergb );
     
   });
 
