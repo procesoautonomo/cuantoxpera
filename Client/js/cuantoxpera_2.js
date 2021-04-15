@@ -134,6 +134,7 @@ function validar_persona() {
       icon: "warning",
       loader: true,
       position: "top-right",
+      loaderBg: '#592323'
     });
     $("#txtNombre").focus();
     return;
@@ -146,6 +147,7 @@ function validar_persona() {
       icon: "warning",
       loader: true,
       position: "top-right",
+      loaderBg: '#592323'
     });
     $("#txtMonto").focus();
     return;
@@ -183,6 +185,8 @@ function validar_persona() {
     icon: "info",
     loader: true,
     position: "top-right",
+    loaderBg: '#EC693C'
+    
   });
 
   $("#txtNombre").val("").focus();
@@ -205,6 +209,8 @@ function limpiar() {
     icon: "success",
     loader: true,
     position: "top-right",
+    loaderBg: '#EC693C'
+    
   });
   $("#ul_personas").empty();
   $("#panel_personas").hide();
@@ -248,6 +254,8 @@ function eliminar_amigo(mostrar_toast) {
       icon: "success",
       loader: true,
       position: "top-right",
+      loaderBg: '#EC693C'
+      
     });
   }
 
