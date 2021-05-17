@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.UI", "Web.UI\Web.UI.csproj", "{AB83E76F-1C52-4627-8575-36028A371219}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.UI", "Web.UI\Web.UI.csproj", "{AB83E76F-1C52-4627-8575-36028A371219}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
