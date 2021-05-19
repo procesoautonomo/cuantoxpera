@@ -81,8 +81,8 @@
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 0.9rem;
-    line-height: 1.5rem;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
     text-align: center;
 }
 
@@ -91,12 +91,14 @@
     order: 1;
     flex-grow: 0;
     margin: 38px 0px 0px 0px;
+    max-width: 40%;
 }
 
 .cxp-logo-isotipo {
     flex: none;
     order: 0;
     flex-grow: 0;
+    max-width: 40%;
 }
 
 .small {
