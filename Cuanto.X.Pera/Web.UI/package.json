@@ -1,0 +1,18 @@
+{
+  "name": "web.ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "buildcss": "postcss wwwroot/css/cxp.css -o wwwroot/css/cxp.min.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.15",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.2",
+    "ts-promise": "^2.2.0"
+  }
+}

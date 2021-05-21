@@ -1,17 +1,13 @@
 ﻿@inherits LayoutComponentBase
-    
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
 
-<MudLayout Class="d-flex flex-column align-start px-6 pt-2 pb-7" Style="width: 100%; height:100vh; background: #F9F3EF;">
-    <div class="cpx-main-index-header">
+<div class="flex flex-col items-start pt-4 px-5 pb-4 h-screen" Style="background: #F9F3EF;">
+    <div class="flex flex-col justify-between items-center flex-none self-stretch flex-grow-0">
         <CxpBreadcrumb></CxpBreadcrumb>
     </div>
-    <div Class="cxp-main-index-content">
+    <div Class="flex flex-col justify-center items-center flex-none self-stretch flex-grow my-4">
         @Body
     </div>
-    <div class="cxp-main-footer">
+    <div class="flex flex-col justify-between items-center flex-none self-stretch flex-grow-0">
         <CxpNavMenu></CxpNavMenu>
     </div>
-</MudLayout>
+</div>

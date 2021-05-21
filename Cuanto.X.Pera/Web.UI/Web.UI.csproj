@@ -1,14 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="npm run buildcss" />
+  </Target>
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-  </PropertyGroup>
+  </PropertyGroup>  
+  <ItemGroup>
+    <TypeScriptCompile Remove="node_modules\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.6" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="5.0.8" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.2.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MudBlazor" Version="5.0.9" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
