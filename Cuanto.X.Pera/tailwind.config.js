@@ -7,8 +7,8 @@ module.exports = {
         //    safelist: ['shadow-light', 'shadow-light-md'],
         //},
         content: [
-            './**/*.html',
-            './**/*.razor'
+            './Web.UI/**/*.html',
+            './Web.UI/**/*.razor'
         ],
     },
     darkMode: 'media',
