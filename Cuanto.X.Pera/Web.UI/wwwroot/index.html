@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="dark">
 
 <head>
     <meta charset="utf-8" />
@@ -24,6 +24,12 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script>
+        window.toggleMode = () => {
+            document.documentElement.classList.toggle('dark')
+            return true;
+        };
+    </script>
 </body>
 
 </html>
