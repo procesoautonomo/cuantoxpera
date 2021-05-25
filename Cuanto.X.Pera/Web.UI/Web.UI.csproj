@@ -8,6 +8,14 @@
   </PropertyGroup>  
   <ItemGroup>
     <TypeScriptCompile Remove="node_modules\**" />
+  </ItemGroup>  
+  <ItemGroup>
+    <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
+  </ItemGroup>  
+  <ItemGroup>
+    <None Remove="postcss.config.js" />
+    <None Remove="tailwind.config.js" />
   </ItemGroup>
 
   <ItemGroup>
