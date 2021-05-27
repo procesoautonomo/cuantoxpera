@@ -4,11 +4,11 @@
 @tailwind utilities;
 
 .toggle-checkbox:checked {
-    @apply right-0 border-black transition-all duration-500 ease-in-out;
+    @apply right-0 border-black;
 }
 
     .toggle-checkbox:checked + .toggle-label {
-        @apply bg-black transition-all duration-500 ease-in-out;
+        @apply bg-black;
     }
 
 input[type=range]::-webkit-slider-thumb {

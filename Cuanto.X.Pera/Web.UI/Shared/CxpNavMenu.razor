@@ -1,4 +1,5 @@
-﻿
+﻿@inject IJSRuntime JS
+
 <div id="Cxp-Navbar" class="">
     <div id="Cxp-Navbar-Wrapper" class="flex flex-row justify-between items-center px-5 bg-white dark:bg-black shadow-md dark:shadow-light-md rounded-3xl">
         <div id="Cxp-Navbar-Left" class="flex flex-col justify-center items-start p-0 self-stretch flex-grow flex-1 m-0">
@@ -14,7 +15,25 @@
             </button>
         </div>
         <div id="Cxp-Navbar-Middle" class="flex flex-col justify-center items-center p-0 self-stretch flex-grow flex-1 m-0">
-            <button class="p-1 m-2">
+
+            <div id="Cpx-Navbar-Items" class="@NavMenuCssClass absolute bottom-20 shadow-md dark:shadow-light bg-white dark:bg-black rounded-2xl">
+                <div class="flex flex-col justify-evenly items-center space-y-5 py-5 px-5 rounded-2xl shadow-sm bg-white dark:bg-black">
+                    <button class="bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light px-4 py-2 text-sm font-extrabold rounded-xl">Historial</button>
+                    <div class="relative inline-block w-16 h-8 align-middle select-none shadow-md dark:shadow-light rounded-full">
+                        <input type="checkbox" checked @onclick="ToggleMode" name="toggle" id="toggle" class="toggle-checkbox absolute block border-2 border-orange-50 dark:border-gray-800 w-8 h-8 rounded-full bg-orange-500 appearance-none cursor-pointer" />
+                        <label for="toggle" class="bg-orange-50 flex flex-row justify-evenly items-center toggle-label overflow-hidden h-8 rounded-full cursor-pointer">
+                            <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.23214 6.1955C5.4881 6.4521 5.90248 6.4521 6.15776 6.1955C6.41308 5.9389 6.41308 5.5235 6.15776 5.26759L4.76932 3.875C4.51336 3.6184 4.09898 3.6184 3.84366 3.875C3.5877 4.1316 3.5877 4.547 3.84366 4.80295L5.23214 6.1955ZM5.62622 16.0183L4.25082 17.397C3.99749 17.651 3.99749 18.0625 4.25082 18.3164C4.50415 18.5704 4.91463 18.5704 5.16796 18.3164L6.54335 16.9377C6.79669 16.6837 6.79669 16.2722 6.54335 16.0183C6.29002 15.7643 5.87958 15.7643 5.62622 16.0183ZM11.2495 4.08105C11.6109 4.08105 11.9042 3.78705 11.9042 3.4248V1.45605C11.9042 1.0938 11.6109 0.799805 11.2495 0.799805C10.8882 0.799805 10.5949 1.0938 10.5949 1.45605V3.4248C10.5949 3.78705 10.8882 4.08105 11.2495 4.08105ZM17.5478 5.90541L18.9232 4.52662C19.1765 4.27266 19.1765 3.86117 18.9232 3.60722C18.6698 3.35326 18.2593 3.35326 18.006 3.60722L16.6306 4.98601C16.3773 5.23997 16.3773 5.65146 16.6306 5.90541C16.884 6.1594 17.2944 6.1594 17.5478 5.90541ZM3.39393 10.6436H1.43002C1.06867 10.6436 0.775391 10.9376 0.775391 11.2998C0.775391 11.6621 1.06867 11.9561 1.43002 11.9561H3.39393C3.75528 11.9561 4.04856 11.6621 4.04856 11.2998C4.04856 10.9376 3.75528 10.6436 3.39393 10.6436ZM11.2495 18.5186C10.8882 18.5186 10.5949 18.8126 10.5949 19.1748V21.1436C10.5949 21.5058 10.8882 21.7998 11.2495 21.7998C11.6109 21.7998 11.9042 21.5058 11.9042 21.1436V19.1748C11.9042 18.8126 11.6109 18.5186 11.2495 18.5186ZM21.069 10.6436H19.1051C18.7438 10.6436 18.4505 10.9376 18.4505 11.2998C18.4505 11.6621 18.7438 11.9561 19.1051 11.9561H21.069C21.4304 11.9561 21.7237 11.6621 21.7237 11.2998C21.7237 10.9376 21.4304 10.6436 21.069 10.6436ZM17.2669 16.4041C17.011 16.1475 16.5966 16.1475 16.3413 16.4041C16.0853 16.6607 16.0853 17.0761 16.3413 17.3321L17.7297 18.724C17.9857 18.9806 18.4001 18.9806 18.6554 18.724C18.9107 18.4673 18.9114 18.052 18.6554 17.796L17.2669 16.4041ZM11.2495 5.38961C7.99337 5.38961 5.35389 8.03561 5.35389 11.2998C5.35389 14.564 7.99337 17.21 11.2495 17.21C14.5057 17.21 17.1452 14.564 17.1452 11.2998C17.1452 8.03561 14.5057 5.38961 11.2495 5.38961Z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-gray-900" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.2661 16.1663C10.659 16.1586 5.30457 10.7912 5.29688 4.16753C5.29401 2.81646 5.5213 1.47461 5.96879 0.200195C1.84652 2.53297 -0.367089 7.21243 0.439808 11.8884C1.24701 16.5643 4.89991 20.2265 9.56438 21.0354C14.2287 21.8443 18.8966 19.6253 21.2237 15.4927C19.9524 15.9416 18.6141 16.1693 17.2661 16.1663Z" />
+                            </svg>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="p-1 m-2" @onclick="ToggleNavMenu">
                 <svg class="w-5 h-5 fill-current text-orange-500" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.73959 0.400024H2.03082C0.909005 0.400024 0 1.31671 0 2.44799V5.17964C0 6.31093 0.909005 7.22761 2.03082 7.22761H4.73959C5.86141 7.22761 6.77041 6.31093 6.77041 5.17964V2.44799C6.77041 1.31671 5.86141 0.400024 4.73959 0.400024ZM13.9692 0.400024H11.2604C10.1386 0.400024 9.22959 1.31671 9.22959 2.44799V5.17964C9.22959 6.31093 10.1386 7.22761 11.2604 7.22761H13.9692C15.091 7.22761 16 6.31093 16 5.17964V2.44799C16 1.31671 15.091 0.400024 13.9692 0.400024ZM11.2604 9.57244H13.9692C15.091 9.57244 16 10.4891 16 11.6204V14.3521C16 15.4826 15.091 16.4 13.9692 16.4H11.2604C10.1386 16.4 9.22959 15.4826 9.22959 14.3521V11.6204C9.22959 10.4891 10.1386 9.57244 11.2604 9.57244ZM4.73959 9.57239H2.03082C0.909005 9.57239 0 10.4891 0 11.6204V14.352C0 15.4825 0.909005 16.4 2.03082 16.4H4.73959C5.86141 16.4 6.77041 15.4825 6.77041 14.352V11.6204C6.77041 10.4891 5.86141 9.57239 4.73959 9.57239Z" />
                 </svg>
@@ -33,5 +52,17 @@
 </div>
 
 @code {
+    private bool collapseNavMenu = false;
 
+    private string NavMenuCssClass => collapseNavMenu ? "visible" : "invisible";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task ToggleMode()
+    {
+        await JS.InvokeVoidAsync("toggleMode");
+    }
 }
