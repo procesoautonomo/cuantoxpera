@@ -1,13 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="flex flex-col items-start pt-4 px-5 pb-4 h-screen" Style="background: #F9F3EF;">
-    <div class="flex flex-col justify-between items-center flex-none self-stretch flex-grow-0">
-        <CxpBreadcrumb></CxpBreadcrumb>
-    </div>
-    <div Class="flex flex-col justify-center items-center flex-none self-stretch flex-grow my-4">
-        @Body
-    </div>
-    <div class="flex flex-col justify-between items-center flex-none self-stretch flex-grow-0">
+<div id="page" class="relative mx-auto h-screen bg-orange-50 dark:bg-gray-950 overflow-auto">
+    
+    <div id="navbar" class="fixed z-10 inset-x-0 bottom-0 max-w-2xl mx-auto bg-orange-50 dark:bg-gray-950 px-5 pb-5 pt-6">
         <CxpNavMenu></CxpNavMenu>
     </div>
+
+    <div id="main" Class="h-full flex flex-col  pb-28">
+        @Body
+    </div>
+
 </div>

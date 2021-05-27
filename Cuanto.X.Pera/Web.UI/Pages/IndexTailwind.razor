@@ -1,4 +1,5 @@
-﻿@page "/"
+﻿@page "/IndexTailwind"
+@layout MainLayoutClean
 @inject IJSRuntime JS
 
 <div class="flex flex-row bg-orange-50 dark:bg-gray-950 z-20 px-3 md:px-8 lg:px-12 xl:px-16 py-2 top-0 items-center justify-start w-full fixed">
@@ -17,11 +18,11 @@
 </div>
 
 <div class="bg-orange-50 h-full px-3 md:px-8 lg:px-12 xl:px-16  py-14 dark:bg-gray-950">
-    <!-- Helpers -->
+    <!-- IsoLogotipo -->
     <div class="">
         <h3 class="sticky z-10 top-12 text-xl pb-1 font-bold dark:text-white bg-orange-50 dark:bg-gray-950">IsoLogotipo</h3>
         <div class="flex flex-col place-items-start pb-10">
-            <div id="Cxp-IsoLogotipo" class="p-1 mt-5 w-full max-w-xs">
+            <div id="Cxp-IsoLogotipo" class="p-1 mt-5 w-full max-w-sm">
                 <div id="Cxp-IsoLogoTipo-Wrapper" class="flex flex-col items-center">
                     <div id="Cxp-Isotipo" class="flex-1 flex-grow-0 mb-8">
                         <svg class="h-52 fill-current text-orange-500" viewBox="0 0 186 241" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,12 +53,12 @@
                             </g>
                         </svg>
                     </div>
-                    <div id="Cxp-IsoLogotipo-Identificador" class="flex flex-row justify-between items-start flex-1 flex-grow-0">
+                    <div id="Cxp-IsoLogotipo-Identificador" class="flex flex-row justify-between items-start flex-1 px-3 flex-grow-0">
                         <svg class="w-1 h-8 mr-8 stroke-current stroke-2 text-orange-500 opacity-80" viewBox="0 0 3 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.5 40.4674V0.777649" />
                         </svg>
 
-                        <p class="text-orange-900 dark:text-white text-xs md:text-base text-center font-bold">Herramienta para administrar gastos en juntadas.</p>
+                        <p class="text-orange-900 dark:text-white text-sm md:text-base text-center font-bold">Herramienta para dividir gastos entre amigos.</p>
 
                         <svg class="w-1 h-8 ml-8 stroke-current stroke-2 text-orange-500 opacity-80" viewBox="0 0 3 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.5 40.4674V0.777649" />
