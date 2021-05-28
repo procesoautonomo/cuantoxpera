@@ -1,11 +1,48 @@
 ﻿@page "/juntada"
 
-    <div class="flex flex-col justify-between items-center flex-none self-stretch flex-grow-0">
-        <CxpBreadcrumb></CxpBreadcrumb>
+<CxpBreadcrumb></CxpBreadcrumb>
+
+<div id="Cpx-Juntada-Content" class="flex flex-wrap justify-center pt-16 pb-28 px-2 max-w-2xl mx-auto">
+
+    <div class="p-1 m-1">
+        <div class="flex flex-col items-center py-2 px-3 rounded-2xl shadow-md dark:shadow-light-md bg-white dark:bg-black">
+            <div class="flex flex-col items-center flex-none order-none self-stretch flex-grow-0">
+                <div class="flex flex-col justify-center items-center p-0 flex-none order-1 flex-grow-0">
+                    <div class="flex flex-col items-center p-0 w-">
+                        <button @onclick="AddFriend" class="bg-white dark:bg-black text-orange-500 px-8 py-12">
+                            <svg class="w-7 h-7 fill-current text-orange-500" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.71186 23V13.7415H0V9.16102H9.71186V0H14.2881V9.16102H24V13.7415H14.2881V23H9.71186Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <h3>Juntada</h3>
+
+    @for (int i = 0; i < friendsCount; i++)
+    {
+        <CxpFriendCard OnButtonDeleteClick="DeleteFriend" OnButtonEditClick="EditFriend"></CxpFriendCard>
+    }
+
+</div>
+
+@code {
+    int friendsCount = 0;
 
 
-    @code {
+    private void AddFriend()
+    {
+        friendsCount++;
+    }
+
+    private void DeleteFriend()
+    {
+        friendsCount--;
+    }
+
+    private void EditFriend()
+    {
 
     }
+}

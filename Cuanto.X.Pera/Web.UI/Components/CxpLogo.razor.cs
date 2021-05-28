@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace Web.UI.Components
 {
-    public partial class CxpLogo : ComponentBase
-    {
-        [Parameter] public bool IsSmallVersion { get; set; } = false;
-    }
+
 }

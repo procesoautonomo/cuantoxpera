@@ -36,4 +36,12 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\images\logo\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\CxpFriendCard.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\CxpFriendCard.razor" />
+  </ItemGroup>
 </Project>
