@@ -1,13 +1,13 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-    //purge: {
-    //    enabled: true,
-    //    content: [
-    //        './Web.UI/**/*.html',
-    //        './Web.UI/**/*.razor'
-    //    ],
-    //},
+    purge: {
+        enabled: true,
+        content: [
+            './Web.UI/**/*.html',
+            './Web.UI/**/*.razor'
+        ],
+    },
     darkMode: 'class',
     theme: {
         boxShadow: {
