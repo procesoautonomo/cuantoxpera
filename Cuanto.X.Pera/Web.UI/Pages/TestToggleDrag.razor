@@ -1,0 +1,65 @@
+﻿@page "/touchtoggle"
+@layout MainLayoutClean
+@inject IJSRuntime JS
+
+<div id="page" class="relative mx-auto h-screen bg-orange-50 dark:bg-gray-950 overflow-auto">
+    <div class="p-14">
+        <div class="overflow-hidden relative inline-block w-16 h-8 align-middle select-none shadow-md dark:shadow-light-md rounded-full ">
+            <input style="@css" @bind="@pchecked" @onclick="ToggleMode" @ontouchstart="onTouchStart" @ontouchend="onTouchEnd" @ontouchmove="onTouchMove" type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block border-2 border-orange-50 dark:border-gray-800 w-8 h-8 rounded-full bg-orange-500 appearance-none cursor-pointer " />
+            <label for="toggle" class="bg-orange-50 flex flex-row justify-evenly items-center toggle-label overflow-hidden h-8 rounded-full cursor-pointer ">
+                <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.23214 6.1955C5.4881 6.4521 5.90248 6.4521 6.15776 6.1955C6.41308 5.9389 6.41308 5.5235 6.15776 5.26759L4.76932 3.875C4.51336 3.6184 4.09898 3.6184 3.84366 3.875C3.5877 4.1316 3.5877 4.547 3.84366 4.80295L5.23214 6.1955ZM5.62622 16.0183L4.25082 17.397C3.99749 17.651 3.99749 18.0625 4.25082 18.3164C4.50415 18.5704 4.91463 18.5704 5.16796 18.3164L6.54335 16.9377C6.79669 16.6837 6.79669 16.2722 6.54335 16.0183C6.29002 15.7643 5.87958 15.7643 5.62622 16.0183ZM11.2495 4.08105C11.6109 4.08105 11.9042 3.78705 11.9042 3.4248V1.45605C11.9042 1.0938 11.6109 0.799805 11.2495 0.799805C10.8882 0.799805 10.5949 1.0938 10.5949 1.45605V3.4248C10.5949 3.78705 10.8882 4.08105 11.2495 4.08105ZM17.5478 5.90541L18.9232 4.52662C19.1765 4.27266 19.1765 3.86117 18.9232 3.60722C18.6698 3.35326 18.2593 3.35326 18.006 3.60722L16.6306 4.98601C16.3773 5.23997 16.3773 5.65146 16.6306 5.90541C16.884 6.1594 17.2944 6.1594 17.5478 5.90541ZM3.39393 10.6436H1.43002C1.06867 10.6436 0.775391 10.9376 0.775391 11.2998C0.775391 11.6621 1.06867 11.9561 1.43002 11.9561H3.39393C3.75528 11.9561 4.04856 11.6621 4.04856 11.2998C4.04856 10.9376 3.75528 10.6436 3.39393 10.6436ZM11.2495 18.5186C10.8882 18.5186 10.5949 18.8126 10.5949 19.1748V21.1436C10.5949 21.5058 10.8882 21.7998 11.2495 21.7998C11.6109 21.7998 11.9042 21.5058 11.9042 21.1436V19.1748C11.9042 18.8126 11.6109 18.5186 11.2495 18.5186ZM21.069 10.6436H19.1051C18.7438 10.6436 18.4505 10.9376 18.4505 11.2998C18.4505 11.6621 18.7438 11.9561 19.1051 11.9561H21.069C21.4304 11.9561 21.7237 11.6621 21.7237 11.2998C21.7237 10.9376 21.4304 10.6436 21.069 10.6436ZM17.2669 16.4041C17.011 16.1475 16.5966 16.1475 16.3413 16.4041C16.0853 16.6607 16.0853 17.0761 16.3413 17.3321L17.7297 18.724C17.9857 18.9806 18.4001 18.9806 18.6554 18.724C18.9107 18.4673 18.9114 18.052 18.6554 17.796L17.2669 16.4041ZM11.2495 5.38961C7.99337 5.38961 5.35389 8.03561 5.35389 11.2998C5.35389 14.564 7.99337 17.21 11.2495 17.21C14.5057 17.21 17.1452 14.564 17.1452 11.2998C17.1452 8.03561 14.5057 5.38961 11.2495 5.38961Z" />
+                </svg>
+                <svg class="w-4 h-4 fill-current text-gray-900" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.2661 16.1663C10.659 16.1586 5.30457 10.7912 5.29688 4.16753C5.29401 2.81646 5.5213 1.47461 5.96879 0.200195C1.84652 2.53297 -0.367089 7.21243 0.439808 11.8884C1.24701 16.5643 4.89991 20.2265 9.56438 21.0354C14.2287 21.8443 18.8966 19.6253 21.2237 15.4927C19.9524 15.9416 18.6141 16.1693 17.2661 16.1663Z" />
+                </svg>
+            </label>
+        </div>
+    </div>
+</div>
+
+@code {
+    double x_initial = 0;
+    double x_end = 0;
+    string positionX = "0px";
+    string css = "";
+    bool pchecked = true;
+    
+
+    void onTouchStart(TouchEventArgs touchEventArgs)
+    {
+        x_initial = touchEventArgs.Touches[0].ClientX - 15;
+    }
+
+    async void onTouchMove(TouchEventArgs touchEventArgs)
+    {
+        x_end = touchEventArgs.ChangedTouches[0].ClientX - 15;
+        positionX = x_end.ToString() + "px";
+        if (x_initial - x_end <= 30 && x_initial - x_end >= -30)
+        {
+            css = $"position:fixed;left:{positionX};";
+        }
+
+
+        if ((x_initial - x_end) >= 15 && pchecked)
+        {
+            pchecked = false;
+            await ToggleMode();
+        }
+        else if ((x_initial - x_end) <= -15 && !pchecked)
+        {
+            pchecked = true;
+            await ToggleMode();
+        }
+    }
+
+    void onTouchEnd(TouchEventArgs touchEventArgs)
+    {
+        css = "";
+    }
+
+    private async Task ToggleMode()
+    {
+        await JS.InvokeVoidAsync("toggleMode");
+    }
+}

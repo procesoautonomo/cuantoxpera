@@ -756,6 +756,10 @@ video {
   order: 0;
 }
 
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 .font-semibold {
   font-weight: 600;
 }
@@ -1016,6 +1020,10 @@ video {
 
 .p-5 {
   padding: 1.25rem;
+}
+
+.p-14 {
+  padding: 3.5rem;
 }
 
 .p-3\.5 {
@@ -1319,6 +1327,10 @@ video {
 .dark .dark\:text-white {
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.tracking-widest {
+  letter-spacing: 0.1em;
 }
 
 .select-none {
