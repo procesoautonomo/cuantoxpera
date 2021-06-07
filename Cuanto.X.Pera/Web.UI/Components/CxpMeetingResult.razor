@@ -1,0 +1,41 @@
+﻿@if (meeting != null)
+{
+    <div id="Cxp-Results-Wrapper" class="fixed flex flex-col items-center px-5 bottom-1 @(View? "top-16":"h-20") w-screen max-w-xl bg-orange-50 dark:bg-gray-950 bg-opacity-0 dark:bg-opacity-0">
+        <div @onclick="ToggleView" class="absolute top-1.5 rounded w-16 h-2 bg-orange-500 cursor-pointer"></div>
+        <div class="flex flex-col w-full items-center h-full max-w-md bg-gray-940 dark:bg-gray-960 rounded-t-2xl pt-2 px-1">
+            <div class="p-1 mt-2 w-full max-w-sm">
+                <div class="flex flex-row justify-evenly items-center py-1 px-2 rounded-xl shadow-sm bg-white dark:bg-black">
+                    <div class="flex flex-col items-center justify-center">
+                        <p class="flex-none order-0 flex-grow-0 text-center font-bold text-xs text-gray-500 mix-blend-normal">Total</p>
+                        <p class="flex-none order-1 flex-grow-0 text-center text-bse text-black dark:text-white black font-bold">$@meeting.TotalAmount</p>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center">
+                        <p class="flex-none order-0 flex-grow-0 text-center font-bold text-xs text-gray-500 mix-blend-normal">Total x Pera</p>
+                        <p class="flex-none order-1 flex-grow-0 text-center text-base text-black dark:text-white font-bold">$@meeting.CxpAmount</p>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-y-auto overflow-x-hidden pb-20 w-full max-w-sm">
+                @foreach (Payment payment in meeting.Payments)
+                {
+                    <CxpPayment payment="payment"></CxpPayment>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public Meeting meeting { get; set; }
+
+    bool View = false;
+
+    private void ToggleView()
+    {
+        View = !View;
+    }
+}

@@ -1,29 +1,46 @@
 ﻿@page "/juntada"
+@page "/juntada/{id:int}"
 
-<CxpBreadcrumb></CxpBreadcrumb>
+@if (meeting != null)
+{
+    <CxpBreadcrumb MeetingName="@(meeting.Name)" MeetingDate="@(meeting.Date)"></CxpBreadcrumb>
 
-<div id="Cpx-Juntada-Content" class="flex flex-wrap justify-center pt-16 pb-28 px-1 max-w-2xl mx-auto">
+    <div id="Cpx-Juntada-Content" class="flex flex-wrap justify-center pt-12 pb-28 px-1 max-w-xl mx-auto">
 
-    <CxpAddEditFriendCard @ref="cxpAddEdifRef" OnAddFriendButtonClick="AddFriend" OnButtonCloseClick="CalcelEditFriend" OnButtonOkClick="OkEditFriend"></CxpAddEditFriendCard>
-    
-    @foreach (var _friend in friends)
-    {
-        <CxpFriendCard friend="_friend" OnButtonDeleteClickEvent="DeleteFriend" OnButtonEditClickEvent="EditFriend"></CxpFriendCard>
-    }
-    
-</div>
+        <CxpAddEditFriendCard @ref="cxpAddEdifRef" OnAddFriendButtonClick="AddFriend" OnButtonCloseClick="CalcelEditFriend" OnButtonOkClick="OkEditFriend"></CxpAddEditFriendCard>
+
+        @foreach (var _friend in meeting.Friends)
+        {
+            <CxpFriendCard friend="_friend" OnButtonDeleteClickEvent="DeleteFriend" OnButtonEditClickEvent="EditFriend"></CxpFriendCard>
+        }
+
+        @if (meeting.Payments != null)
+        {
+            <CxpMeetingResult meeting="meeting"></CxpMeetingResult>
+        }
+    </div>
+}
 
 @code {
     CxpAddEditFriendCard cxpAddEdifRef = new CxpAddEditFriendCard();
     Friend friend;
-    List<Friend> friends = new List<Friend>();
+
+    [Parameter]
+    public int id { get; set; }
+
+    [Parameter]
+    public Meeting meeting { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        meeting = await MeetingGeneratorHelper.Generate();
+    }
 
     private void AddFriend()
     {
         friend = new Friend();
         friend.Amount = 0;
         friend.Name = "";
-        friend.Initials = "FN";
         friend.CxpAmout = 0;
         friend.State = FriendState.Adding;
 
@@ -36,7 +53,7 @@
     {
         friend = cxpAddEdifRef.EditingFriend;
         friend.State = FriendState.Save;
-        friends.Add(friend);
+        meeting.Friends.Add(friend);
         cxpAddEdifRef.EditingFriend = null;
     }
 
@@ -50,7 +67,7 @@
         else
         {
             friend.State = FriendState.Save;
-            friends.Add(friend);
+            meeting.Friends.Add(friend);
             cxpAddEdifRef.EditingFriend = null;
         }
     }
@@ -58,12 +75,12 @@
 
     private void DeleteFriend(Friend fr)
     {
-        friends.Remove(fr);
+        meeting.Friends.Remove(fr);
     }
 
     private void EditFriend(Friend fr)
     {
-        friends.Remove(fr);
+        meeting.Friends.Remove(fr);
         friend = fr;
         friend.State = FriendState.Editig;
         cxpAddEdifRef.EditingFriend = friend;

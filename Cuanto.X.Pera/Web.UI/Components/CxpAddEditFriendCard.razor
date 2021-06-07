@@ -1,27 +1,19 @@
 ﻿@if (EditingFriend == null)
 {
-    <div class="p-1 m-1">
-        <div class="flex flex-col items-center py-2 px-3 rounded-2xl shadow-md dark:shadow-light-md bg-white dark:bg-black">
-            <div class="flex flex-col items-center flex-none order-none self-stretch flex-grow-0">
-                <div class="flex flex-col justify-center items-center p-0 flex-none order-1 flex-grow-0">
-                    <div class="flex flex-col items-center p-0 w-">
-                        <button @onclick="OnAddFriendButtonClick" class="bg-white dark:bg-black text-orange-500 px-8 py-12">
-                            <svg class="w-7 h-7 fill-current text-orange-500" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.71186 23V13.7415H0V9.16102H9.71186V0H14.2881V9.16102H24V13.7415H14.2881V23H9.71186Z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="relative p-2">
+        <button @onclick="OnAddFriendButtonClick" class="flex items-center justify-center focus:outline-none bg-white dark:bg-black text-orange-500 px-8 py-12 w-24 h-28 rounded-2xl shadow-md dark:shadow-light-md">
+            <svg class="w-6 h-6 fill-current text-orange-500" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.71186 23V13.7415H0V9.16102H9.71186V0H14.2881V9.16102H24V13.7415H14.2881V23H9.71186Z" />
+            </svg>
+        </button>
     </div>
 }
 else
 {
-    <div class="p-1 m-1">
-        <div class="relative max-w-sm">
+    <div class="p-2">
+        <div class="relative max-w-xs">
             <div class="flex flex-col items-end absolute -right-2 -top-2">
-                <button @onclick="OnButtonCloseClick" class="bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light p-2 mb-1 text-sm font-extrabold rounded-xl">
+                <button @onclick="OnButtonCloseClick" class="focus:outline-none bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light p-2 mb-1 text-sm font-extrabold rounded-xl">
                     <svg class="w-3 h-3 fill-current text-orange-500" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.51945 4.96729L2.79477 3.84733L2.08806 4.96729H0.477002L1.99224 2.85314L0.530903 0.774935H2.11801L2.83071 1.82901L3.52544 0.774935H5.04666L3.59132 2.79924L5.1365 4.96729H3.51945Z" />
                     </svg>
@@ -30,40 +22,37 @@ else
             <div class="flex flex-col items-center py-3 px-5 rounded-2xl shadow-md dark:shadow-light-md bg-white dark:bg-black">
                 <div class="flex flex-col items-center flex-none order-none self-stretch flex-grow">
                     <div class="flex flex-row justify-center items-center p-0 self-stretch flex-none order-none flex-grow-0">
-                        <p class="flex-none flex-grow font-bold text-sm text-orange-500">Nuevo Participante</p>
+                        <p class="flex-none flex-grow font-bold text-sm text-orange-500">Add Friend</p>
                     </div>
                     <div class="flex flex-col items-center pt-3 flex-none order-1 self-stretch flex-grow">
                         <div class="flex flex-row items-center flex-wrap flex-none self-stretch flex-grow-0">
                             <div class="flex flex-col items-center p-0 flex-none order-none flex-grow-0 mr-2 mb-2">
                                 <div class="flex-none order-0 flex-grow-0 my-1">
-                                    <div class="font-mono tracking-widest bg-orange-500 text-white py-3.5 px-4 rounded-full">@EditingFriend.Initials</div>
+                                    <div class="bg-orange-500 text-xs text-white py-3 px-3 rounded-full font-mono tracking-widest">@EditingFriend.Initials</div>
                                 </div>
                             </div>
                             <div class="mt-1 w-min self-stretch flex-grow">
                                 <div class="border-2 border-orange-500 rounded-xl bg-white dark:bg-black">
-                                    <label class="absolute text-xs -mt-2 ml-2 bg-white dark:bg-black px-1 text-orange-500" for="amount">Nombre</label>
-                                    <div class="px-1 py-3 flex items-center">
-                                        <input type="text" id="name" name="name" class="mx-2 w-full text-lg text-gray-900 dark:text-white dark:bg-black" placeholder="Nombre Amigo" @bind-value="@EditingFriend.Name" @onfocusout="GenerateInitials" />
+                                    <label class="absolute text-xs -mt-2.5 ml-2 bg-white dark:bg-black px-1 text-orange-500" for="amount">Nombre Amigo </label>
+                                    <div class="px-2 py-2 flex items-center">
+                                        <input id="name" name="name" class="outline-none mx-2 w-full text-base text-gray-900 dark:text-white dark:bg-black" type="text" placeholder="Friend Name" @bind-value="@EditingFriend.Name" />
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-2 order-2 w-full">
                                 <div class="border-2 border-orange-500 rounded-xl bg-white dark:bg-black">
-                                    <label class="absolute text-xs -mt-2 ml-2 bg-white dark:bg-black px-1 text-orange-500" for="amount">Monto</label>
-                                    <div class="px-4 py-4 flex items-center">
-                                        <div class="relative w-5 border-orange-500 border-2"></div>
-                                        <input type="number" id="amount" name="monto" class="mx-2 w-full text-3xl text-center font-bold text-gray-900 dark:text-white dark:bg-black" placeholder="Monto" @bind-value="@EditingFriend.Amount" />
-                                        <div class="relative w-5 border-orange-500 border-2"></div>
-                                    </div>
-                                    <div class="relative px-4 pb-1">
-                                        <input type="range" class="appearance-none overflow-hidden w-full rounded-full" min="0" max="10000" step="1" @bind-value="@EditingFriend.Amount" />
+                                    <label class="absolute text-xs -mt-2.5 ml-2 bg-white dark:bg-black px-1 text-orange-500" for="amount">Amount</label>
+                                    <div class="px-2 py-2 flex items-center">
+                                        <div class="relative w-5 border-orange-500 border"></div>
+                                        <input id="amount" name="amount" class="outline-none mx-2 w-full text-base text-center text-gray-900 dark:text-white dark:bg-black" type="text" placeholder="Amount" @bind-value="@EditingFriend.Amount" />
+                                        <div class="relative w-5 border-orange-500 border"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex flex-row justify-end items-end pt-3 pb-1 flex-none order-2 self-stretch flex-grow-0">
-                        <button disabled="@(ButtonOkDisable())" @onclick="OnButtonOkClick" class="bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light px-3 py-1 text-sm font-extrabold rounded-xl disabled:opacity-30 disabled:cursor-not-allowed">Agregar</button>
+                        <button disabled="@(ButtonOkDisable())" @onclick="OnButtonOkClick" class="focus:outline-none bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light px-4 py-2 text-xs font-extrabold rounded-xl">Confirmar</button>
                     </div>
                 </div>
             </div>
@@ -73,7 +62,6 @@ else
 
 
 @code {
-
 
     [Parameter]
     public Friend EditingFriend { get; set; }
@@ -89,13 +77,7 @@ else
 
     private bool ButtonOkDisable()
     {
-        return EditingFriend.Name=="";
+        return EditingFriend.Name == "";
     }
 
-
-    private void GenerateInitials()
-    {
-        ButtonOkDisable();
-        EditingFriend.Initials = EditingFriend.Name.Length > 1 ? EditingFriend.Name.Substring(0, 2).ToUpper() : EditingFriend.Name.ToUpper();
-    }
 }

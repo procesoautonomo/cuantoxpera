@@ -9,7 +9,7 @@ namespace Web.UI.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Initials { get; set; }
+        public string Initials => Name.Length > 1 ? Name.Substring(0, 2).ToUpper() : Name.ToUpper();
         public decimal Amount { get; set; }
         public decimal CxpAmout { get; set; }
         public FriendState State { get; set; }

@@ -5,7 +5,8 @@ module.exports = {
         enabled: true,
         content: [
             './Web.UI/**/*.html',
-            './Web.UI/**/*.razor'
+            './Web.UI/**/*.razor',
+            './Web.UI/**/*.css'
         ],
     },
     darkMode: 'class',
@@ -39,8 +40,10 @@ module.exports = {
                     800: '#9A3412',
                     900: '#592323'
                 },
-                gray:{
+                gray: {
+                    940: "#E4DFDB",
                     950: "#1A1C23",
+                    960: "#3C404B",
                   }
             },
         },
