@@ -16,11 +16,11 @@ namespace Web.UI.Services
         public static List<Friend> Generate()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Friend
+            return Enumerable.Range(1, 10).Select(index => new Friend
             {
                 Id = index,
-                Name = FriendNames[rng.Next(FriendNames.Length)],
-                Amount = rng.Next(0, 5000),
+                Name = $"{FriendNames[rng.Next(FriendNames.Length)]}, {FriendNames[rng.Next(FriendNames.Length)]}",
+                Amount = rng.Next(0, 10),
                 State = FriendState.Save,
             })
             .ToList();

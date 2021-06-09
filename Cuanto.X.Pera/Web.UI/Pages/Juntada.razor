@@ -1,4 +1,6 @@
-﻿@page "/juntada"
+﻿@inject IJSRuntime JS
+
+@page "/juntada"
 @page "/juntada/{id:int}"
 
 @if (meeting != null)
@@ -18,22 +20,38 @@
         {
             <CxpMeetingResult meeting="meeting"></CxpMeetingResult>
         }
+
     </div>
 }
 
 @code {
+    [CascadingParameter]
+    public MainLayout ValorEnCascada { get; set; }
+
     CxpAddEditFriendCard cxpAddEdifRef = new CxpAddEditFriendCard();
     Friend friend;
 
     [Parameter]
     public int id { get; set; }
 
-    [Parameter]
-    public Meeting meeting { get; set; }
+    private Meeting meeting { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        meeting = await MeetingGeneratorHelper.Generate();
+        //meeting = await MeetingGeneratorHelper.Generate();
+
+        if (id == 0 || meeting is null)
+        {
+            meeting = new Meeting()
+            {
+                Id = 1,
+                Date = DateTime.Now,
+                Name = "Juntada",
+                Friends = new List<Friend>()
+            };
+        }
+
+        ValorEnCascada.meeting = meeting;
     }
 
     private void AddFriend()
@@ -55,6 +73,8 @@
         friend.State = FriendState.Save;
         meeting.Friends.Add(friend);
         cxpAddEdifRef.EditingFriend = null;
+
+        Calculate();
     }
 
     private void CalcelEditFriend()
@@ -69,13 +89,16 @@
             friend.State = FriendState.Save;
             meeting.Friends.Add(friend);
             cxpAddEdifRef.EditingFriend = null;
+
+            Calculate();
         }
     }
-
 
     private void DeleteFriend(Friend fr)
     {
         meeting.Friends.Remove(fr);
+
+        Calculate();
     }
 
     private void EditFriend(Friend fr)
@@ -85,5 +108,120 @@
         friend.State = FriendState.Editig;
         cxpAddEdifRef.EditingFriend = friend;
         friend = null;
+    }
+
+    private void Calculate()
+    {
+        meeting.Payments = null;
+        if (meeting.Friends.Count >= 2)
+        {
+            meeting.TotalAmount = meeting.Friends.Sum(t => t.Amount);
+            meeting.CxpAmount = Math.Round(meeting.Friends.Sum(t => t.Amount) / Convert.ToDecimal(meeting.Friends.Count), 2);
+
+            List<Payer> Deudores = new List<Payer>();
+            List<Collector> Cobradores = new List<Collector>();
+            List<Payment> Pagos = new List<Payment>();
+
+            for (int l = 0; l < meeting.Friends.Count; l++)
+            {
+                Friend amigo = meeting.Friends[l];
+
+                if (amigo.Amount < meeting.CxpAmount)
+                {
+                    Payer deudor = new Payer();
+                    deudor.PayerFriend = amigo;
+                    deudor.DebitBalance = meeting.CxpAmount - amigo.Amount;
+                    Deudores.Add(deudor);
+                    deudor = null;
+                }
+                else
+                {
+                    Collector cobrador = new Collector();
+                    cobrador.CollertorFriend = amigo;
+                    cobrador.CollectingBalance = amigo.Amount - meeting.CxpAmount;
+                    Cobradores.Add(cobrador);
+                    cobrador = null;
+                }
+
+                amigo = null;
+            }
+
+            meeting.Payers = Deudores;
+            meeting.Collectors = Cobradores;
+
+            Deudores = null;
+            Cobradores = null;
+
+
+            Payer _deudor = null;
+            Collector _cobrador = null;
+            Payment _pago = null;
+            decimal montoPagar = 0;
+            int i = 0;
+            int j = 0;
+
+            for (i = 0; i < meeting.Payers.Count; i++)
+            {
+                _deudor = meeting.Payers[i];
+
+                while (_deudor.DebitBalance != 0)
+                {
+                    for (j = 0; j < meeting.Collectors.Count; j++)
+                    {
+                        _cobrador = meeting.Collectors[j];
+                        if (_cobrador.CollectingBalance != 0)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (j == meeting.Collectors.Count)
+                    {
+                        break;
+                    }
+
+                    if (_deudor.DebitBalance >= _cobrador.CollectingBalance)
+                    {
+                        montoPagar = _cobrador.CollectingBalance;
+                    }
+                    else
+                    {
+                        montoPagar = _deudor.DebitBalance;
+                    }
+
+                    _deudor.DebitBalance -= montoPagar;
+                    _cobrador.CollectingBalance -= montoPagar;
+
+                    meeting.Payers[i] = _deudor;
+                    meeting.Collectors[j] = _cobrador;
+
+                    //hacer debug con 200, 0 y 900
+
+                    _pago = new Payment();
+
+                    _pago.FriendCollector = _cobrador;
+                    _pago.FriendPayer = _deudor;
+                    _pago.PaymentAmount = Math.Round(montoPagar, 2);
+                    _pago.RoundedPaymentAmount = Math.Round(montoPagar, 2);
+
+                    Pagos.Add(_pago);
+                }
+            }
+
+            meeting.Payments = Pagos;
+
+            meeting.ShareResultText = "";
+            foreach (var pago in meeting.Payments)
+            {
+                var titulo = "";
+                if (meeting.ShareResultText.Trim() == "")
+                {
+                    titulo = "¡Repartamos los pagos con Cuanto x Pera!\n\n";
+                }
+                meeting.ShareResultText += (titulo + pago.FriendPayer.PayerFriend.Name + " le tiene que pagar a " + pago.FriendCollector.CollertorFriend.Name + " $" + pago.RoundedPaymentAmount.ToString() + ".\n\n");
+            }
+        }
+
+        ValorEnCascada.meeting = meeting;
     }
 }

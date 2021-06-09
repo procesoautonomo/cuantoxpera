@@ -1,13 +1,22 @@
 ﻿@inherits LayoutComponentBase
 
 <div id="page" class="relative mx-auto h-screen bg-orange-50 dark:bg-gray-950 overflow-auto">
-    
-    <div id="navbar" class="fixed z-10 inset-x-0 bottom-0 max-w-xl mx-auto bg-orange-50 dark:bg-gray-950 bg-opacity-90 dark:bg-opacity-90 px-3 pb-3 ">
-        <CxpNavMenu></CxpNavMenu>
-    </div>
+    <CascadingValue Value="@this">
+        <div id="navbar" class="fixed z-10 inset-x-0 bottom-0 max-w-xl mx-auto bg-orange-50 dark:bg-gray-950 bg-opacity-90 dark:bg-opacity-90 px-3 pb-3 ">
+            <CxpNavMenu></CxpNavMenu>
+        </div>
 
-    <div id="main" Class="h-full flex flex-col  pb-28">
-        @Body
-    </div>
+        <div id="main" Class="h-full flex flex-col  pb-28">
 
+            @Body
+
+        </div>
+    </CascadingValue>
 </div>
+
+@code{ 
+
+    private Meeting _meeting;
+    public Meeting meeting { get => _meeting; set { _meeting = value; InvokeAsync(()=> StateHasChanged());} }
+
+}

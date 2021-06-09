@@ -16,5 +16,6 @@ namespace Web.UI.Entities
         public List<Payment> Payments { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal CxpAmount { get; set; }
+        public string ShareResultText { get; set; }
     }
 }

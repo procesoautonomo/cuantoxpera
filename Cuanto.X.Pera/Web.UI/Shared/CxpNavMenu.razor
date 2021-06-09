@@ -16,7 +16,7 @@
         </div>
         <div id="Cxp-Navbar-Middle" class="flex flex-col justify-center items-center p-0 self-stretch flex-grow flex-1 m-0">
 
-            <div  id="Cpx-Navbar-Items" class="@NavMenuCssClass absolute bottom-20 shadow-md dark:shadow-light bg-white dark:bg-black rounded-2xl">
+            <div id="Cpx-Navbar-Items" class="@NavMenuCssClass absolute bottom-20 shadow-md dark:shadow-light bg-white dark:bg-black rounded-2xl">
                 <div class="flex flex-col justify-evenly items-center space-y-5 py-5 px-5 rounded-2xl shadow-sm bg-white dark:bg-black">
                     <button @ref="CpxNavbarItems" class="bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light px-4 py-2 text-sm font-extrabold rounded-xl">Historial</button>
                     <CxpSwitchTheme></CxpSwitchTheme>
@@ -31,17 +31,31 @@
         </div>
         <div id="Cxp-Navbar-Right" class="flex flex-col justify-center items-end p-0 self-stretch flex-grow flex-1 m-0">
             <div class="relative w-full h-full flex-none self-stretch flex-grow">
-                <NavLink href="juntada" class="bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light rounded-full p-5 absolute -top-7 right-0">
-                    <svg class="w-4 h-4 fill-current text-orange-500" viewBox="0 0 24 23" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.71186 23V13.7415H0V9.16102H9.71186V0H14.2881V9.16102H24V13.7415H14.2881V23H9.71186Z" />
-                    </svg>
-                </NavLink>
+                @if (AmigoDesdeParametro.meeting == null)
+                {
+                    <NavLink href="juntada" class="bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light rounded-full p-5 absolute -top-7 right-0">
+                        <svg class="w-4 h-4 fill-current text-orange-500" viewBox="0 0 24 23" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.71186 23V13.7415H0V9.16102H9.71186V0H14.2881V9.16102H24V13.7415H14.2881V23H9.71186Z" />
+                        </svg>
+                    </NavLink>
+                }
+                else
+                {
+                    <button disabled="@(ButtonShareDisable())" @onclick="ShareResults" class="group disabled:cursor-not-allowed focus:outline-none bg-white dark:bg-black text-orange-500 shadow-md dark:shadow-light rounded-full p-5 absolute -top-7 right-0">
+                        <svg class="w-4 h-4 stroke-current stroke-1 fill-current text-orange-500 group-disabled:text-orange-10" viewBox="0 0 35 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M27.5833 0.787842C28.7014 0.787732 29.8018 1.06693 30.7846 1.60009C31.7674 2.13324 32.6014 2.90346 33.211 3.8408C33.8205 4.77813 34.1863 5.85289 34.275 6.96746C34.3637 8.08203 34.1726 9.20111 33.719 10.2231C33.2654 11.245 32.5637 12.1375 31.6776 12.8194C30.7915 13.5013 29.7491 13.951 28.645 14.1278C27.541 14.3045 26.4103 14.2027 25.3556 13.8315C24.3009 13.4603 23.3557 12.8315 22.6057 12.0023L13.8696 16.9933C14.2787 18.2992 14.2787 19.6989 13.8696 21.0048L22.6038 25.9997C23.7143 24.7726 25.239 23.999 26.8851 23.8276C28.5312 23.6561 30.1826 24.0988 31.5222 25.0707C32.8618 26.0426 33.7951 27.4751 34.1428 29.0932C34.4906 30.7112 34.2283 32.4007 33.4064 33.8372C32.5844 35.2736 31.2608 36.3558 29.6896 36.8758C28.1184 37.3958 26.4105 37.3171 24.8939 36.6547C23.3773 35.9922 22.1588 34.7928 21.4726 33.2868C20.7863 31.7808 20.6807 30.0743 21.1759 28.4952L12.4416 23.4984C11.5319 24.5043 10.3388 25.211 9.01957 25.5255C7.70029 25.8399 6.31671 25.7473 5.05109 25.2599C3.78547 24.7725 2.6972 23.9131 1.92963 22.795C1.16207 21.6768 0.751221 20.3524 0.751221 18.9962C0.751221 17.6399 1.16207 16.3155 1.92963 15.1974C2.6972 14.0793 3.78547 13.2199 5.05109 12.7325C6.31671 12.2451 7.70029 12.1525 9.01957 12.4669C10.3388 12.7813 11.5319 13.488 12.4416 14.4939L21.1759 9.50293C20.8617 8.49788 20.7883 7.43301 20.9618 6.39437C21.1352 5.35574 21.5506 4.37248 22.1744 3.52408C22.7981 2.67568 23.6127 1.98594 24.5524 1.5106C25.492 1.03527 26.5303 0.787677 27.5833 0.787842ZM27.5833 26.6628C26.5656 26.6628 25.5896 27.0671 24.87 27.7867C24.1504 28.5063 23.7461 29.4823 23.7461 30.5C23.7461 31.5177 24.1504 32.4937 24.87 33.2133C25.5896 33.9329 26.5656 34.3372 27.5833 34.3372C28.601 34.3372 29.577 33.9329 30.2966 33.2133C31.0162 32.4937 31.4205 31.5177 31.4205 30.5C31.4205 29.4823 31.0162 28.5063 30.2966 27.7867C29.577 27.0671 28.601 26.6628 27.5833 26.6628ZM7.46213 15.1628C6.44445 15.1628 5.46845 15.5671 4.74885 16.2867C4.02924 17.0063 3.62497 17.9823 3.62497 19C3.62497 20.0177 4.02924 20.9937 4.74885 21.7133C5.46845 22.4329 6.44445 22.8372 7.46213 22.8372C8.47981 22.8372 9.45581 22.4329 10.1754 21.7133C10.895 20.9937 11.2993 20.0177 11.2993 19C11.2993 17.9823 10.895 17.0063 10.1754 16.2867C9.45581 15.5671 8.47981 15.1628 7.46213 15.1628ZM27.5833 3.66284C26.5656 3.66284 25.5896 4.06711 24.87 4.78672C24.1504 5.50633 23.7461 6.48233 23.7461 7.50001C23.7461 8.51769 24.1504 9.49369 24.87 10.2133C25.5896 10.9329 26.5656 11.3372 27.5833 11.3372C28.601 11.3372 29.577 10.9329 30.2966 10.2133C31.0162 9.49369 31.4205 8.51769 31.4205 7.50001C31.4205 6.48233 31.0162 5.50633 30.2966 4.78672C29.577 4.06711 28.601 3.66284 27.5833 3.66284Z" />
+                        </svg>
+                    </button>
+                }
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    [CascadingParameter]
+    public MainLayout AmigoDesdeParametro { get; set; }
+
     ElementReference CpxNavbarItems;
 
     private bool collapseNavMenu = false;
@@ -53,5 +67,15 @@
         collapseNavMenu = !collapseNavMenu;
         await Task.Delay(50);
         await CpxNavbarItems.FocusAsync();
+    }
+
+    private async Task ShareResults()
+    {
+        await JS.InvokeVoidAsync("shareResults", AmigoDesdeParametro.meeting.ShareResultText);
+    }
+
+    private bool ButtonShareDisable()
+    {
+        return AmigoDesdeParametro.meeting.Friends.Count < 2;
     }
 }

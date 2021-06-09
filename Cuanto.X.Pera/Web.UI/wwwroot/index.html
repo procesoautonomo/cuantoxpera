@@ -29,6 +29,23 @@
             document.documentElement.classList.toggle('dark')
             return true;
         };
+
+        window.shareResults = (text_a_pagar) => {
+            if (navigator.share) {
+                navigator
+                    .share({
+                        title: "Cuanto x Pera",
+                        text: text_a_pagar + "\n",
+                        url: "https://cuantoxpera.com.ar",
+                    })
+                    .then
+                    // () => console.log('Successful share')
+                    ()
+                    .catch
+                    // (error) => console.log('Error sharing', error)
+                    ();
+            }
+        };
     </script>
 </body>
 
