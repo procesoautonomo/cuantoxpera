@@ -51,7 +51,14 @@ module.exports = {
     },
     variants: {
         extend: {
-            boxShadow: ['dark']
+            boxShadow: ['dark', 'disabled'],
+            opacity: ['dark','disabled'],
+            cursor: ['dark','disabled'],
+            stroke: ['dark','disabled'],
+            backgroundColor: ['dark','disabled'],
+            textColor: ['dark','disabled'],
+            fill: ['dark','disabled'],
+            strokeWidth: ['dark','disabled'],
         }
     },
     plugins: [],
