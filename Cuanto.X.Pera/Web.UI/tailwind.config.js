@@ -1,14 +1,12 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-    purge: {
-        enabled: true,
-        content: [
-            './Web.UI/**/*.html',
-            './Web.UI/**/*.razor',
-            './Web.UI/**/*.css'
-        ],
-    },
+    mode: 'jit',
+    purge: [
+        './**/*.html',
+        './**/*.razor',
+        './**/*.css'
+    ],
     darkMode: 'class',
     theme: {
         boxShadow: {
@@ -61,5 +59,7 @@ module.exports = {
             strokeWidth: ['dark','disabled'],
         }
     },
-    plugins: [],
+    plugins: [
+        require('tailwindcss-textshadow')
+    ],
 }

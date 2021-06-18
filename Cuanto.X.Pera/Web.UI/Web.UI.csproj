@@ -1,30 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="npm run buildcss" />
-  </Target>-->
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-  </PropertyGroup>  
-  <ItemGroup>
-    <TypeScriptCompile Remove="node_modules\**" />
-  </ItemGroup>  
-  <ItemGroup>
-    <Content Remove="package-lock.json" />
-    <Content Remove="package.json" />
-  </ItemGroup>  
-  <ItemGroup>
-    <None Remove="postcss.config.js" />
-    <None Remove="tailwind.config.js" />
-  </ItemGroup>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.7" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
@@ -43,4 +26,22 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Components\CxpFriendCard.razor" />
   </ItemGroup>
+
+  <Target Name="CheckForNpm" BeforeTargets="NpmInstall">
+    <Exec Command="npm -v" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="You must install NPM to build this project" />
+  </Target>
+
+  <Target Name="NpmInstall" BeforeTargets="BuildCSS" Inputs="package.json" Outputs="$(NpmLastInstall)">
+    <Exec Command="npm install" />
+    <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+  </Target>
+
+  <Target Name="BuildCSS" BeforeTargets="Compile">
+    <Exec Command="npm run buildcss:dev" Condition=" '$(Configuration)' == 'Debug' " />
+    <Exec Command="npm run buildcss:release" Condition=" '$(Configuration)' == 'Release' " />
+  </Target>
+  
 </Project>
