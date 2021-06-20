@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@inject ILocalStorageService localStore
+@inject Services.MeetingService meetingService
+@inject NavigationManager navigationManager
 
 <div id="page" class="relative mx-auto h-screen bg-orange-50 dark:bg-gray-950 overflow-auto">
     <CascadingValue Value="@this">
@@ -14,9 +17,15 @@
     </CascadingValue>
 </div>
 
-@code{ 
-
-    private Meeting _meeting;
-    public Meeting meeting { get => _meeting; set { _meeting = value; InvokeAsync(()=> StateHasChanged());} }
-
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        meetingService.OnChange += StateHasChanged;
+        meetingService.History = await localStore.GetItemAsync<List<Meeting>>(meetingService.HistoryKey);
+        meetingService.ActualMeeting = await localStore.GetItemAsync<Meeting>(meetingService.ActualMeetingKey);
+        if (meetingService.ActualMeeting != null)
+        {
+            navigationManager.NavigateTo("/juntada");
+        }
+    }
 }

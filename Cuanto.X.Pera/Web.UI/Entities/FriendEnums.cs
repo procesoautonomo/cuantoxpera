@@ -12,4 +12,13 @@ namespace Web.UI.Entities
         Deleting,
         Save
     }
+
+    public enum NotificationType
+    {
+        None,
+        Info,
+        Success,
+        Warning,
+        Error
+    }
 }

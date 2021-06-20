@@ -31,13 +31,13 @@
     [Parameter]
     public EventCallback<Friend> OnButtonDeleteClickEvent { get; set; }
 
+    [Parameter]
+    public EventCallback<Friend> OnButtonEditClickEvent { get; set; }
+
     private async Task OnButtonDeleteClick()
     {
         await OnButtonDeleteClickEvent.InvokeAsync(friend);
     }
-
-    [Parameter]
-    public EventCallback<Friend> OnButtonEditClickEvent { get; set; }
 
     private async Task OnButtonEditClick()
     {

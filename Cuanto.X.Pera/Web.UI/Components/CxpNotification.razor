@@ -1,0 +1,96 @@
+﻿@if (Type != NotificationType.None)
+{
+    <div id="Cxp-Notification" class="fixed bottom-20 max-w-sm w-full p-4">
+        @if (Type == NotificationType.Success && Friend != null)
+        {
+            <div id="Cxp-Notification-Wrapper" class="flex flex-row justify-between items-center px-2 bg-green-700 shadow-md rounded-3xl">
+                <div id="Cxp-Notification-Left" class="flex flex-col justify-center items-start py-1 flex-none">
+                    <div class="p-3 m-1 bg-green-900 rounded-full">
+                        <svg class="w-3 h-3 fill-current text-white" viewBox="0 0 36 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M34.6253 1.41418C35.9378 2.4205 36.1883 4.29921 35.1853 5.61426L17.63 28.6316C17.0213 29.4298 16.0986 29.9258 15.0986 29.9923C14.0986 30.0589 13.1186 29.6895 12.41 28.979L1.11296 17.6522C-0.0548956 16.4813 -0.0548976 14.5861 1.11296 13.4152L1.79263 12.7337C2.96484 11.5584 4.86864 11.5584 6.04085 12.7337L14.5188 21.234L29.6526 1.39145C30.6592 0.0716743 32.5462 -0.179919 33.8634 0.830021L34.6253 1.41418Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div id="Cxp-Notification-Middle" class="flex flex-col py-3 ml-2 flex-auto m-0">
+                    <h2 class="text-white text-xl mb-1">
+                        ¡Removido! -
+                        <button class="text-xs underline font-bold" @onclick="Undo">
+                            DESHACER
+                        </button>
+                    </h2>
+                    <p class="text-white text-xs mb-1">Se quitaron los gastos de @(Friend.Name).</p>
+                </div>
+                <div id="Cxp-Notification-Right" class="flex flex-col justify-center items-end p-0 self-stretch flex-grow flex-1 m-0">
+                    <div class="relative w-full h-full flex-none self-stretch flex-grow">
+                        <button class="p-1 m-2 absolute right-1 top-1" @onclick="Close">
+                            <svg class="w-2 h-2 fill-current text-white" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.93934 16.9393C0.353553 17.5251 0.353553 18.4749 0.93934 19.0607C1.52513 19.6464 2.47487 19.6464 3.06066 19.0607L10 12.1213L16.9393 19.0607C17.5251 19.6465 18.4749 19.6465 19.0607 19.0607C19.6464 18.4749 19.6464 17.5251 19.0607 16.9393L12.1213 10L19.0607 3.06066C19.6464 2.47487 19.6464 1.52513 19.0607 0.93934C18.4749 0.353553 17.5251 0.353553 16.9393 0.93934L10 7.87868L3.06066 0.939342C2.47487 0.353556 1.52513 0.353556 0.93934 0.939342C0.353553 1.52513 0.353553 2.47488 0.93934 3.06066L7.87868 10L0.93934 16.9393Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Type == NotificationType.Info && Friend != null)
+        {
+            <div id="Cxp-Notification-Wrapper" class="flex flex-row justify-between items-center px-2 bg-blue-500 shadow-md rounded-3xl">
+                <div id="Cxp-Notification-Left" class="flex flex-col justify-center items-start py-1 flex-none">
+                    <div class="p-3 m-1 bg-blue-800 rounded-full">
+                        <svg class="w-3 h-3 fill-current text-white" viewBox="0 0 10 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 15C9.5 13.3431 8.15685 12 6.5 12L3.5 12C1.84314 12 0.499997 13.3431 0.499997 15L0.499998 37C0.499998 38.6569 1.84314 40 3.5 40L6.5 40C8.15685 40 9.5 38.6569 9.5 37L9.5 15ZM5 3.93402e-07C2.51472 6.10673e-07 0.499997 2.01472 0.499997 4.5C0.499997 6.98528 2.51472 9 5 9C7.48528 9 9.5 6.98528 9.5 4.5C9.5 2.01472 7.48528 1.76132e-07 5 3.93402e-07Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div id="Cxp-Notification-Middle" class="flex flex-col py-3 ml-2 flex-auto m-0">
+                    <h2 class="text-white text-lg mb-1">
+                        ¡Agregado!
+                    </h2>
+                    <p class="text-white text-xs mb-1">@(Friend.Name) gastó en la juntada $@(Friend.Amount).</p>
+                </div>
+                <div id="Cxp-Notification-Right" class="flex flex-col justify-center items-end p-0 self-stretch flex-grow flex-1 m-0">
+                    <div class="relative w-full h-full flex-none self-stretch flex-grow">
+                        <button class="p-1 m-2 absolute right-1 top-1" @onclick="Close">
+                            <svg class="w-2 h-2 fill-current text-white" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.93934 16.9393C0.353553 17.5251 0.353553 18.4749 0.93934 19.0607C1.52513 19.6464 2.47487 19.6464 3.06066 19.0607L10 12.1213L16.9393 19.0607C17.5251 19.6465 18.4749 19.6465 19.0607 19.0607C19.6464 18.4749 19.6464 17.5251 19.0607 16.9393L12.1213 10L19.0607 3.06066C19.6464 2.47487 19.6464 1.52513 19.0607 0.93934C18.4749 0.353553 17.5251 0.353553 16.9393 0.93934L10 7.87868L3.06066 0.939342C2.47487 0.353556 1.52513 0.353556 0.93934 0.939342C0.353553 1.52513 0.353553 2.47488 0.93934 3.06066L7.87868 10L0.93934 16.9393Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Type == NotificationType.Warning)
+        {
+            <p>Advertencia</p>
+        }
+        else if (Type == NotificationType.Error)
+        {
+            <p>Error!</p>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public NotificationType Type { get; set; } = NotificationType.None;
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnButtonCloseClick { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnButtonUndoClick { get; set; }
+
+    [Parameter]
+    public Friend Friend { get; set; }
+
+
+    private void Close()
+    {
+        OnButtonCloseClick.InvokeAsync();
+    }
+
+    private void Undo()
+    {
+        OnButtonUndoClick.InvokeAsync();
+    }
+
+}

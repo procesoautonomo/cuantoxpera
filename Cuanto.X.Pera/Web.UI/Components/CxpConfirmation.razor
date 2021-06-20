@@ -1,0 +1,38 @@
+﻿<div id="Cxp-Modal" class="fixed bottom-20 max-w-sm w-full p-4">
+    <div id="Cxp-Modal-Wrapper" class="flex flex-col space-y-5 p-5 justify-between items-center bg-white dark:bg-gray-960 shadow-md rounded-3xl">
+        <div id="Cxp-Modal-Top" class="flex flex-col justify-center items-start flex-none">
+            <div class="p-3 bg-orange-500 rounded-full">
+                <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 10 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 25C0.5 26.6569 1.84315 28 3.5 28H6.5C8.15686 28 9.5 26.6569 9.5 25L9.5 3C9.5 1.34315 8.15686 0 6.5 0H3.5C1.84315 0 0.5 1.34315 0.5 3V25ZM5 40C7.48528 40 9.5 37.9853 9.5 35.5C9.5 33.0147 7.48528 31 5 31C2.51472 31 0.5 33.0147 0.5 35.5C0.5 37.9853 2.51472 40 5 40Z" />
+                </svg>
+            </div>
+        </div>
+        <div id="Cxp-Modal-Middle" class="flex flex-col">
+            <p class="text-orange-500 text-xl text-center">¿Está <b>seguro</b> que desea <b>realizar</b> esta <b>acción</b>?</p>
+        </div>
+        <div id="Cxp-Modal-Bottom" class="flex flex-col">
+            <div class="flex flex-row justify-end space-x-6">
+                <button @onclick="Cancel" class="border-2 border-orange-500 py-2 px-3 rounded-xl text-orange-500 font-bold focus:outline-none shadow-md">Cancelar</button>
+                <button @onclick="Ok" class="border-2 border-orange-500 bg-orange-500 py-2 px-2 rounded-xl text-white dark:text-gray-960 font-bold focus:outline-none shadow-md">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickOkButton { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickCancelButton { get; set; }
+
+    private void Ok()
+    {
+        OnClickOkButton.InvokeAsync();
+    }
+
+    private void Cancel()
+    {
+        OnClickCancelButton.InvokeAsync();
+    }
+}

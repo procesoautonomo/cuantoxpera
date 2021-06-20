@@ -1,57 +1,88 @@
 ﻿@inject IJSRuntime JS
+@inject Services.MeetingService meetingService
+@inject ILocalStorageService localStore
+@inject NavigationManager navigationManager
+
+@using System.Timers
 
 @page "/juntada"
 @page "/juntada/{id:int}"
 
-@if (meeting != null)
+@if (meetingService.ActualMeeting != null)
 {
-    <CxpBreadcrumb MeetingName="@(meeting.Name)" MeetingDate="@(meeting.Date)"></CxpBreadcrumb>
+    <Title>@(meetingService.ActualMeeting.Friends.Count) amigos para dividir gastos.</Title>
+
+    <CxpBreadcrumb MeetingName="@(meetingService.ActualMeeting.Name)" MeetingDate="@(meetingService.ActualMeeting.Date)" />
 
     <div id="Cpx-Juntada-Content" class="flex flex-wrap justify-center pt-12 pb-28 px-1 max-w-xl mx-auto">
 
-        <CxpAddEditFriendCard @ref="cxpAddEdifRef" OnAddFriendButtonClick="AddFriend" OnButtonCloseClick="CalcelEditFriend" OnButtonOkClick="OkEditFriend"></CxpAddEditFriendCard>
+        <CxpAddEditFriendCard EditingFriend="editingFriend" OnAddFriendButtonClick="AddFriend" OnButtonCloseClick="CalcelEditFriend" OnButtonOkClick="OkEditFriend" />
 
-        @foreach (var _friend in meeting.Friends)
+        @foreach (var _friend in meetingService.ActualMeeting.Friends)
         {
-            <CxpFriendCard friend="_friend" OnButtonDeleteClickEvent="DeleteFriend" OnButtonEditClickEvent="EditFriend"></CxpFriendCard>
+            <CxpFriendCard friend="_friend" OnButtonDeleteClickEvent="DeleteFriend" OnButtonEditClickEvent="EditFriend" />
         }
 
-        @if (meeting.Payments != null)
+        @if (meetingService.ActualMeeting.Payments != null)
         {
-            <CxpMeetingResult meeting="meeting"></CxpMeetingResult>
+            <CxpMeetingResult meeting="meetingService.ActualMeeting" />
+        }
+
+        <CxpNotification Friend="friend" Type="type" OnButtonUndoClick="UndoChange" OnButtonCloseClick="CloseNotification" />
+
+        @if (showConfirm)
+        {
+            <CxpConfirmation OnClickCancelButton="CancelConfirmation" OnClickOkButton="OkConfirmation" />
         }
 
     </div>
 }
 
 @code {
-    [CascadingParameter]
-    public MainLayout ValorEnCascada { get; set; }
-
-    CxpAddEditFriendCard cxpAddEdifRef = new CxpAddEditFriendCard();
-    Friend friend;
-
     [Parameter]
     public int id { get; set; }
 
-    private Meeting meeting { get; set; }
+    NotificationType type;
 
-    protected async override Task OnInitializedAsync()
+    private Timer _NotificationTimer;
+
+    Friend friend;
+    Friend editingFriend;
+    Friend confirmDeleteFriend;
+
+    private bool showConfirm = false;
+
+    //private Meeting meeting { get; set; }
+
+    protected override void OnInitialized()
     {
         //meeting = await MeetingGeneratorHelper.Generate();
 
-        if (id == 0 || meeting is null)
-        {
-            meeting = new Meeting()
-            {
-                Id = 1,
-                Date = DateTime.Now,
-                Name = "Juntada",
-                Friends = new List<Friend>()
-            };
-        }
+        //if (id == 0 || meeting is null)
+        //{
+        //    meeting = new Meeting()
+        //    {
+        //        Id = 1,
+        //        Date = DateTime.Now,
+        //        Name = "Juntada",
+        //        Friends = new List<Friend>()
+        //    };
+        //}
 
-        ValorEnCascada.meeting = meeting;
+        //ValorEnCascada.meeting = meeting;
+        meetingService.OnChange += StateHasChanged;
+    }
+
+    private void CloseNotification()
+    {
+        type = NotificationType.None;
+    }
+
+    private void UndoChange()
+    {
+        meetingService.ActualMeeting.Friends.Add(friend);
+        CloseNotification();
+        Calculate();
     }
 
     private void AddFriend()
@@ -62,33 +93,37 @@
         friend.CxpAmout = 0;
         friend.State = FriendState.Adding;
 
-        cxpAddEdifRef.EditingFriend = friend;
+        editingFriend = friend;
 
         friend = null;
     }
 
     private void OkEditFriend()
     {
-        friend = cxpAddEdifRef.EditingFriend;
+        friend = editingFriend;
         friend.State = FriendState.Save;
-        meeting.Friends.Add(friend);
-        cxpAddEdifRef.EditingFriend = null;
+        meetingService.ActualMeeting.Friends.Add(friend);
+        editingFriend = null;
+
+        type = NotificationType.Info;
+
+        SetTimerNotification(5000);
 
         Calculate();
     }
 
     private void CalcelEditFriend()
     {
-        friend = cxpAddEdifRef.EditingFriend;
+        friend = editingFriend;
         if (friend.State == FriendState.Adding)
         {
-            cxpAddEdifRef.EditingFriend = null;
+            editingFriend = null;
         }
         else
         {
             friend.State = FriendState.Save;
-            meeting.Friends.Add(friend);
-            cxpAddEdifRef.EditingFriend = null;
+            meetingService.ActualMeeting.Friends.Add(friend);
+            editingFriend = null;
 
             Calculate();
         }
@@ -96,41 +131,40 @@
 
     private void DeleteFriend(Friend fr)
     {
-        meeting.Friends.Remove(fr);
-
-        Calculate();
+        confirmDeleteFriend = fr;
+        showConfirm = true;
     }
 
     private void EditFriend(Friend fr)
     {
-        meeting.Friends.Remove(fr);
+        meetingService.ActualMeeting.Friends.Remove(fr);
         friend = fr;
         friend.State = FriendState.Editig;
-        cxpAddEdifRef.EditingFriend = friend;
+        editingFriend = friend;
         friend = null;
     }
 
-    private void Calculate()
+    private async void Calculate()
     {
-        meeting.Payments = null;
-        if (meeting.Friends.Count >= 2)
+        meetingService.ActualMeeting.Payments = null;
+        if (meetingService.ActualMeeting.Friends.Count >= 2)
         {
-            meeting.TotalAmount = meeting.Friends.Sum(t => t.Amount);
-            meeting.CxpAmount = Math.Round(meeting.Friends.Sum(t => t.Amount) / Convert.ToDecimal(meeting.Friends.Count), 2);
+            meetingService.ActualMeeting.TotalAmount = meetingService.ActualMeeting.Friends.Sum(t => t.Amount);
+            meetingService.ActualMeeting.CxpAmount = Math.Round(meetingService.ActualMeeting.Friends.Sum(t => t.Amount) / Convert.ToDecimal(meetingService.ActualMeeting.Friends.Count), 2);
 
             List<Payer> Deudores = new List<Payer>();
             List<Collector> Cobradores = new List<Collector>();
             List<Payment> Pagos = new List<Payment>();
 
-            for (int l = 0; l < meeting.Friends.Count; l++)
+            for (int l = 0; l < meetingService.ActualMeeting.Friends.Count; l++)
             {
-                Friend amigo = meeting.Friends[l];
+                Friend amigo = meetingService.ActualMeeting.Friends[l];
 
-                if (amigo.Amount < meeting.CxpAmount)
+                if (amigo.Amount < meetingService.ActualMeeting.CxpAmount)
                 {
                     Payer deudor = new Payer();
                     deudor.PayerFriend = amigo;
-                    deudor.DebitBalance = meeting.CxpAmount - amigo.Amount;
+                    deudor.DebitBalance = meetingService.ActualMeeting.CxpAmount - amigo.Amount;
                     Deudores.Add(deudor);
                     deudor = null;
                 }
@@ -138,7 +172,7 @@
                 {
                     Collector cobrador = new Collector();
                     cobrador.CollertorFriend = amigo;
-                    cobrador.CollectingBalance = amigo.Amount - meeting.CxpAmount;
+                    cobrador.CollectingBalance = amigo.Amount - meetingService.ActualMeeting.CxpAmount;
                     Cobradores.Add(cobrador);
                     cobrador = null;
                 }
@@ -146,8 +180,8 @@
                 amigo = null;
             }
 
-            meeting.Payers = Deudores;
-            meeting.Collectors = Cobradores;
+            meetingService.ActualMeeting.Payers = Deudores;
+            meetingService.ActualMeeting.Collectors = Cobradores;
 
             Deudores = null;
             Cobradores = null;
@@ -160,22 +194,22 @@
             int i = 0;
             int j = 0;
 
-            for (i = 0; i < meeting.Payers.Count; i++)
+            for (i = 0; i < meetingService.ActualMeeting.Payers.Count; i++)
             {
-                _deudor = meeting.Payers[i];
+                _deudor = meetingService.ActualMeeting.Payers[i];
 
                 while (_deudor.DebitBalance != 0)
                 {
-                    for (j = 0; j < meeting.Collectors.Count; j++)
+                    for (j = 0; j < meetingService.ActualMeeting.Collectors.Count; j++)
                     {
-                        _cobrador = meeting.Collectors[j];
+                        _cobrador = meetingService.ActualMeeting.Collectors[j];
                         if (_cobrador.CollectingBalance != 0)
                         {
                             break;
                         }
                     }
 
-                    if (j == meeting.Collectors.Count)
+                    if (j == meetingService.ActualMeeting.Collectors.Count)
                     {
                         break;
                     }
@@ -192,8 +226,8 @@
                     _deudor.DebitBalance -= montoPagar;
                     _cobrador.CollectingBalance -= montoPagar;
 
-                    meeting.Payers[i] = _deudor;
-                    meeting.Collectors[j] = _cobrador;
+                    meetingService.ActualMeeting.Payers[i] = _deudor;
+                    meetingService.ActualMeeting.Collectors[j] = _cobrador;
 
                     //hacer debug con 200, 0 y 900
 
@@ -208,20 +242,67 @@
                 }
             }
 
-            meeting.Payments = Pagos;
+            meetingService.ActualMeeting.Payments = Pagos;
 
-            meeting.ShareResultText = "";
-            foreach (var pago in meeting.Payments)
+            meetingService.ActualMeeting.ShareResultText = "";
+            foreach (var pago in meetingService.ActualMeeting.Payments)
             {
                 var titulo = "";
-                if (meeting.ShareResultText.Trim() == "")
+                if (meetingService.ActualMeeting.ShareResultText.Trim() == "")
                 {
                     titulo = "¡Repartamos los pagos con Cuanto x Pera!\n\n";
                 }
-                meeting.ShareResultText += (titulo + pago.FriendPayer.PayerFriend.Name + " le tiene que pagar a " + pago.FriendCollector.CollertorFriend.Name + " $" + pago.RoundedPaymentAmount.ToString() + ".\n\n");
+                meetingService.ActualMeeting.ShareResultText += (titulo + pago.FriendPayer.PayerFriend.Name + " le tiene que pagar a " + pago.FriendCollector.CollertorFriend.Name + " $" + pago.RoundedPaymentAmount.ToString() + ".\n\n");
             }
         }
 
-        ValorEnCascada.meeting = meeting;
+        StateHasChanged();
+        await localStore.SetItemAsync(meetingService.ActualMeetingKey, meetingService.ActualMeeting);
     }
+
+    private void OkConfirmation()
+    {
+        meetingService.ActualMeeting.Friends.Remove(confirmDeleteFriend);
+
+        friend = confirmDeleteFriend;
+        type = NotificationType.Success;
+
+        SetTimerNotification(20000);
+
+        Calculate();
+        showConfirm = false;
+    }
+
+    private void CancelConfirmation()
+    {
+        confirmDeleteFriend = null;
+        showConfirm = false;
+    }
+
+    public void SetTimerNotification(double interval)
+    {
+        if (_NotificationTimer != null)
+            _NotificationTimer.Enabled = false;
+
+        _NotificationTimer = new Timer(interval);
+        _NotificationTimer.Elapsed += NotifyTimerNotification;
+        _NotificationTimer.Disposed += DisposeTimerNotification;
+        _NotificationTimer.Enabled = true;
+        _NotificationTimer.Stop();
+        _NotificationTimer.Start();
+    }
+
+    private void DisposeTimerNotification(Object source, EventArgs e)
+    {
+        _NotificationTimer = null;
+    }
+
+    private void NotifyTimerNotification(Object source, ElapsedEventArgs e)
+    {
+        CloseNotification();
+        _NotificationTimer.Enabled = false;
+        _NotificationTimer.Dispose();
+        InvokeAsync(StateHasChanged);
+    }
+
 }
